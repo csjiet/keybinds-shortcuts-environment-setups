@@ -1,0 +1,663 @@
+# Mac
+**(Fullscreen)** - cmd + ctrl + f
+
+  
+
+# Web
+**In 1 tab**
+
+**(Back a page)** - cmd + left key
+
+**(previous page) -cmd + right key**
+
+**Across multiple tabs**
+
+**(Next tab) - shift + command + ]**
+
+**(Previous tab) - shift + command + [**
+
+**(Close tab) - cmd + w**
+
+**(Reopen previously close tab) - shift + cmd + t**
+
+  
+
+# Terminal
+
+**(Go to begining of the console line) - ctrl + a**
+
+**(Go to end of the console line) - ctrl + e**
+
+**(Reverse delete/ delete to the right) - ctrl + d**
+
+**(Clear to the LEFT till the beginning line) - ctrl + u**
+
+**(Cancel the current command line command) - ctrl + c**
+
+
+# tmux
+
+**(sessions)**
+
+**(start tmux)** tmux
+
+**(Create a new session)** tmux new/ :new
+
+**(Create new named session)** tmux new -s [name of session]/ :new -s [name of session]
+
+**(check running sessions)** tmux ls
+
+**(ATTACH to a session)** tmux a -t [session_name/ session number]
+
+**(DETACH session)** ctrl+b d
+
+**(KILL session)** tmux kill-ses -t [name_of_session]
+
+**(KILL ALL sessions)** tmux kill-server
+
+**(Give a view of ALL tmux sessions without quiting tmux)** ctrl+b s
+  
+**(windows)**
+
+(Help manual): `ctrl + b ?`
+
+**(Create windows) ctrl + b c**
+
+**(Move to previous window) ctrl + b p**
+
+**(Move to next window) ctrl + b n**
+
+**(Switch to the next pane)** ctrl + b o
+
+**(Switch between the most recent pane) ctrl+ b ;**
+
+
+  
+**(Rename)**
+(Rename a session) ctrl + b $
+  
+**(display)**
+**(Split horizontally)** ctrl+b “
+**(Split vertically)** ctrl + b %
+**(move to pane)** ctrl + b [arrow key]
+**(Expand pane)** ctrl + b:, then   ":resize-pane <-U/-D/-L/-R> {number of lines,moving the border}"
+
+**(Close pane)** ctrl + b x
+
+
+**(Navigation)**
+
+**(Move to previous session)** ctrl + b (
+
+**(Move to next session)** ctrl + b )
+
+(Move to previous pane) ctrl + b ;
+
+(Move to subsequent pane) ctrl + b o
+
+(To allow scrolling in the tmux terminal pane) ctrl + b [
+
+(Stop scrolling mode in tmux terminal pane) ctrl + c
+
+  
+
+  
+
+  
+
+# Vim
+**General**
+
+**- (temporarily put vim in the background to use the terminal) - ctrl+z ; fg**
+
+**- In terminal, we can use ‘ps’ to check for processes in the background**
+
+**- (Delete next word) - dw**
+
+**- (Delete previous word) - db**
+
+**- (Delete from cursor to end of line) - shift + d**
+  
+
+**NAVIGATION**
+
+**(Pan 1/2 screen up) - ctrl + u**
+
+**(Pan 1/2 screen down) - ctrl + d**
+
+**(Pan 1 full screen forward) - ctrl + f (for forward)**
+
+**(Pan 1 full screen backwards) - ctrl + b (for backwards)**
+
+**(Go to the top of the screen): zt**
+
+**(Go to the bottom of the screen): zb**
+
+**(Jump back to** **previous line****): ctrl + o**
+
+**(Jump to next word): w**
+
+**(Jump to previous word): b**
+
+**(find next nearest character)**: f {char}
+  
+
+**OPENING AND QUITTING FILES FROM WITHIN VIM**
+
+(Open file ANOTHER from within vim) - :e {filename}
+
+(Switch between files): ctrl + ^
+
+(Switch to next file) - :bn
+
+(Switch to previous file) - :bN
+
+(switch to first file) - :bf
+
+(swich to last file) - :bl
+
+(switch to specific file name) - :b {filename}
+
+(Quit the current open file) - :bw
+
+(save all files) - :wall 
+
+(quit all opened files) - :qall / :qall! (forcefull quit, discarding and disregarding any changes)
+
+(save and exit file) - :wq! or :x!  (the exclamation mark is just to force change without confirmation)
+
+  
+
+RUN TERMINAL COMMAND FROM WITHIN VIM
+
+(Run terminal command from within vim) - :!<command>
+
+  
+
+**OPENING AND SPLITTING MULTIPLE FILES FROM OUTSIDE VIM**
+
+(Open and split file horizontally) - vim -o {file1}{file2}
+
+(Open and split file vertically) - vim -O {file1} {file2}
+
+
+**OPENING AND SPLITTING MULTIPLE FILES FROM WITHIN VIM**
+
+(Split file horizontall) - :split <another_filename>
+
+(Split file vertically)  - :vsplit <another_filename>
+
+  
+
+**(insert at the END of the line) -** A
+
+**(insert at the START of the line) -** I
+
+**(horizontal split) -** :sp {filename}
+
+**(vertical split) - :**vs {filename}
+
+
+### (Horizontal movement) 
+- https://www.youtube.com/watch?v=5JGVtttuDQA&list=PLm323Lc7iSW_wuxqmKx_xxNtJC_hJbQ7R&index=2
+
+###### General rule to use keybindings - 
+{Command - `d`,`c`,`y`, `v`}{Count}{Motion} CCM
+
+**f{char}** - find the closest matching char to the right (jump forward), and stop AT that character
+
+**F{char}** - find the closest matching char to the left (jump back)
+
+; (semicolon) - jumps to right next ‘f/F’-ed character
+
+, (comma) - jumps to left previous ‘f/F’-ed character
+
+t{char} - find the closest matching car to the right, but stop BEFORE that character
+
+**r{char}** - replace
+
+**ci{bounds}** - “change” “inside” <bounds: e.g., (, <, “, ‘, [, {> (deletes everything within the bounds, and goes into insert mode)
+
+**w** - jump right by 1 word
+
+**b** - jump left by 1 word
+  
+{action}{i/a}{w/W}
+
+- {action}
+
+- {i/a} - exclude/ include
+
+- <w/W> - **w**: move word after “empty char”/,/./\//? while **W**: move to word after empty char only
+
+**viw** - highlight cursored word
+
+**viW** - highlight cursored word + 1 space to the right
+
+**vi**( - highlight everything IN the nearest set of parenthesis
+
+**va**( - highlight everything IN and including the nearest set of parenthesis
+
+**yiw** - copy/ yank cursored word to the right
+
+### (Vertical movement)
+(Jump HALF page down)
+	ctrl + d
+(Jump HALF page up)
+	ctrl + u
+
+(Search next occurences of current word pointed by the cursor)
+	\*
+- n - to navigate to next instances
+- shift + n - to navigate to previous instances
+
+(Search previous occurences of current word pointed by the cursor)
+	\!
+- *Technically if you know \* you don't need this because you can get the same effect by using shift + n after using \**
+
+(Search next occurence (starting from characters to the right of this line to the next))
+	/{regex}
+	
+(Search previous occurence (starting from the characters to the left of this line to the lines before))
+	?{regex}
+
+
+**formatting**
+
+**(format to proper indent) = [highlight] + =**
+
+  
+
+**selecting**
+
+**(highlight everything within the brace): [highlight] + %**
+(goto previously/ last highlighted): `gv`
+  
+
+**line numbers**
+
+**- relative line numbers: cursor will be at position 0; other lines will be the relative position from the cursor**
+
+**- absolute line numbers: cursor will be at the real line number; other lines will be also absolute/ real line numbers**
+
+**- hybrid line numbers when turned on: cursor will show real line number; other lines will be the relative position from the cursor**
+
+**(Turn on relative line numbers) - :set rnu**
+
+**(Turn off relative line numbers) - :set nornu**
+
+**(Turn on absolute line numbers) - :set nu**
+
+**(Turn off absolute line numbers) - :set nonu**
+
+**(Turn on hybrid <relative + absolute> line number - :set nu rnu**
+
+**(Turn off hybrid <relative + absolute> line number: set nonu nornu**
+
+  
+
+# Iterm2 shortcuts
+
+**GENERAL**
+
+**(delete to the start of line) ctrl + u**
+
+**(delete to the end of line) ctrl + k**
+
+**(delete previous word) ctrl + w**
+
+**(delete IN REVERSE ORDER for next character) ctrl + d**
+
+  
+
+**TAB**
+
+**(new tab) - command + T**
+
+**(move between tabs) - command + {arrow keys}** 
+
+**(close tab) - command + w**
+
+  
+
+  
+
+**PANE**
+
+**(switch between panes): option + command + {arrow keys}** 
+
+**(maximize pane): command + shift + enter**
+
+**(drag and move pane): command + option + shift + mouse drag and drop**
+
+**(split window vertically): command + d**
+
+**(split window horizontally): command + shift + d**
+
+  
+
+  
+
+**Markdown**
+
+**(Text formatting)**
+
+  
+
+**(header)**
+
+# This is an H1
+
+## This is an H2
+
+##### This is an H5
+
+**Color text**
+```html
+<span style="color:red">
+Text_content
+</style>
+```
+
+**(bold text)** 
+
+**text**
+
+  __text__
+
+**(italic text)** 
+
+*text*
+
+  _text_
+
+**(highlight text)** 
+
+`very important words`
+
+**(strikethrough text)** 
+
+       ~~The world is flat.~~
+
+  
+
+**(Hyperlink with real link)**
+
+\[{text}\][] at `<path_to_stuff>`
+
+  
+
+**(Hyperlink WITHOUT real link)**
+
+\[{text}\[]
+
+  
+**(tast list)**
+
+- \[x\]  Write the press release
+- [x]  Write the press release
+
+- \[ \] Update the website
+
+- \[ \] Contact the media
+- [ ] Contact the media
+
+  
+
+**(ordered list)** 
+1.   Ready
+2.   Steady
+3.   Go
+
+  
+
+**(unordered list)** 
+\*   Red
+\*   Green
+\*   Blue
+
+OR
+
+\+   Red
+\+   Green
+\+   Blue
+
+OR
+
+\-   Red
+\-   Green
+\-   Blue
+
+  
+
+**(links)** \[Text\](http://exampleLinkHere.net/)
+
+**(image)**  
+!\[text\](attachment:{<file_name}) 
+OR 
+!\[text\]({relative_path})
+
+  
+
+Nice formats
+
+**(Definitions)** 
+
+First Term
+: This is the definition of the first term.
+
+  
+
+Second Term
+
+: This is one definition of the second term.
+
+: This is another definition of the second term.
+
+  
+
+**(Block quotes)** 
+
+\> This is the first level of quoting.
+> This is the first level of quoting.
+
+
+\> > This is nested blockquote.
+> > This is nested blockquote.
+
+
+> Back to the first level.
+
+**(Code)** 
+
+\```<bash/javascript/python/c/css>
+{code here}
+\```
+
+  
+
+**(Alert box)**
+
+\------
+
+**NOTE**
+
+It works with almost all markdown flavours (the below blank line matters).
+
+\------
+
+**(Table)** [website that descibes usage](https://www.markdownguide.org/extended-syntax/)
+```
+| Syntax | Description |
+| --- | ----------- |
+| Header | Title |
+| Paragraph | Text |
+```
+
+Table alignment
+```
+| Syntax      | Description | Test Text     |
+| :---        |    :----:   |          ---: |
+| Header      | Title       | Here's this   |
+| Paragraph   | Text        | And more      |
+```
+- :--- (left alignment)
+- :---: (center alignment)
+- ---: (right alignment)
+  
+
+  
+
+**MATH**
+
+*** All math expressions within the block equation and inline equation should not contain space or unnecessary new line**
+
+**(block equation)**
+
+**$$**
+
+**<the equation>**
+
+**$$**
+
+**(inline equation)**
+
+\$
+**{the equation}**
+\$
+
+**(dot product)**
+
+\\cdot
+
+**(subscript)** 
+
+**\<sub\>[text]\<sub\>**
+
+**OR**
+
+\{text}\__{[text]}
+
+  
+**(superscript)** 
+
+\<sup\>[text]\<sup\>
+
+**OR**
+
+{text}\^{[text]}
+
+  
+
+**(over a range of number)**
+
+**$ \<text>_{<range_of_value>} $**
+
+E.g., https://tex.stackexchange.com/questions/170281/how-put-minimize-in-place-of-min-in-a-typical-optimization-problem*
+
+ 
+**(normal text within an equation)**
+\\text{}
+
+(underline) 
+\\underline{}
+
+**(text at the end of line of an equation)**
+
+\&&\\text{}
+
+**(hat)**  \$\hat{{data}}$  
+
+**(fraction)** 
+\$/frac{numerator}{denomenator}$
+
+  
+
+**(summation from i to m)** 
+\$ \sum_{i}^{m}{<the_equation_which_is_summed>} $
+
+  
+
+**(partial derivative)** 
+\$ \frac{\partial{func}}{/partial{w_respect_to}}
+
+  
+
+**(newline)** 
+\\\\
+
+**(vector/ magnitude)**
+
+**E.g., put an arrow on top of the character “beta”**
+
+\$\overrightarrow{\beta}$
+
+\$\vec{\beta}$
+
+\$\vv{\beta}$
+
+  
+
+
+**math alignment**
+
+***All alignment should be wrapped in \begin{align} \end{align} tag FIRST**
+
+**(align equals operator) All = that wants to be aligned in the equation should be &=**
+
+**Examples: https://latex-programming.fandom.com/wiki/Align_(LaTeX_environment)**
+
+# Jupyter notebooks (vanilla) commands
+**(Since we are using jupyter-vim-bindings for jupyter notebook, and jupyterlab-vim for jupyter lab, we have an additional "VIM mode", which we will enter, allowing normal insert, normal, visual mode in vim. To use vanilla jupyter notebook commands, we must exit VIM MODE: SHIFT + ESC)**
+
+**Insert cell above**: 
+	A
+**Insert cell below**: 
+	B
+Delete Cell:
+	DD
+Change cell to 'markdown':
+	M
+Change cell to 'code':
+	Y
+
+(Within cell):
+**Run terminal command in jupy n cell**
+	!{cli command in terminal}
+
+**Time entire cell of code, to see how long it took to run the code in the cell**:
+\##### cell \#####
+	\%\%timeit
+	{code}
+	{code}
+\#############
+
+**Time line of the code within the cell, to see how long it took to run the code in the cell**
+	\%timeit {code}
+
+	
+
+# Jupyter-vim-bindings in jupyter notebooks
+
+**Turn on line numbers**
+- {C-o} + shift+L
+
+# Jupyter lab vim
+Resource: https://github.com/jupyterlab-contrib/jupyterlab-vim
+**Escape VIM MODE** (so that you can use normal jupyter lab/ jupyter notebook commands)
+	shift + esc
+**Run current line and stay in current cell**: 
+	ctrl + enter
+**Run current line and jump to the next cell**: 
+	shift + enter
+
+
+# Obsidian
+
+(Resize images) \!\[\{image_name\} \| \{size_int\}\]
+
+(Move current file to another folder): ctrl + shift + m
+
+
+
+
