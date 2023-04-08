@@ -651,6 +651,10 @@ Resource: https://github.com/jupyterlab-contrib/jupyterlab-vim
 **Run current line and jump to the next cell**: 
 	shift + enter
 
+Check jupyterlab extension
+https://jupyterlab.readthedocs.io/en/stable/user/extensions.html
+
+
 
 # Obsidian
 
