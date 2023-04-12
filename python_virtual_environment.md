@@ -2,8 +2,17 @@
 
 Source: [https://medium.com/@krishnaregmi/pipenv-vs-virtualenv-vs-conda-environment-3dde3f6869ed]
 
-What is a virtual environment vs kernel?
-- 
+What is a virtual environment vs Jupyter kernel?
+- **Jupyter Kernel** (session): A runtime environment that provides programming language support for the Jupyter Notebook application. When a notebook is opened in edit mode, only one interactive session connects to a Jupyter Kernel for the notebook language. This kernel runs code that you send, and returns the computational results.
+- **Virtual environment** (package tracker): An isolated environment which isolates installed 1) Python interpreter, 2) libraries, 3) scripts from other virtual environment and the system "base" (default).
+- Similarities: Both provides isolation.
+- Differences: 
+- Kernel isolates jupyter runs as an isolated session, while a virtual environment isolates things like 1) interpreters, 2) libraries, 3) scripts within the kernel/ session?
+- Kernel stores a subset of dependencies from the Base/ System root, virtual environment points to those dependencies? ( Virtual env $\subseteq$ Kernel $\subseteq$ Base )?
+	- Base is the gate to the neighborhood, Kernel is like the gate to the house, while virtual environment are doors in a house?
+- Advantage of having a kernel:
+	- Keep their kernel isolated, as they might have different kernels for differen tasks/ workflows.
+- Advantages of having a virtual environment:
 
 ----------------------
 # Virtualenv
@@ -70,16 +79,16 @@ Resources:
 ## Prereq
 - Install ipykernel: `conda install -c anaconda ipykernel`
 
+## (Create and install new kernel into system)
+> $`ipython kernel install --user --name={name_of_new_kernel}`
+- `name_of_kernel` that is created can be anything. But recommended to be the same as the environment, so reduce ambiguities.
+
 ## 1. (Create a new virtual environment)
 > $`conda create -n {name_of_new_virtual_env} python={version_no}`
 > $`conda create -n {name_of_new_virtual_env}`
 
 ## 2. (Activate virtual environment)
 > $`conda activate {name_of_new_virtual_env}`
-
-## (Create and install new kernel into system)
-> $`ipython kernel install --user --name={name_of_new_kernel}`
-- `name_of_kernel` that is created can be anything. But recommended to be the same as the environment, so reduce ambiguities.
 
 ## 3. (INSTALL new packages into virtual environment without YAML files)
 > $`conda install -name {name_of_virtual_env} {name_of_new_package}`
