@@ -51,7 +51,7 @@
 
 **(DETACH session)** ctrl+b d
 
-**(KILL session)** tmux kill-ses -t [name_of_session]
+**(KILL A session)** tmux kill-ses  -t {name_of_session}
 
 **(KILL ALL sessions)** tmux kill-server
 
@@ -293,6 +293,14 @@ t{char} - find the closest matching car to the right, but stop BEFORE that chara
 **(Turn on hybrid <relative + absolute> line number - :set nu rnu**
 
 **(Turn off hybrid <relative + absolute> line number: set nonu nornu**
+
+
+## VIMRC
+- **:map**: See all keybinds in vimrc 
+- `:unmap {keybind}`: unmap the specified keybind in vimrc.
+- `:nnoremap {keybind} {command}`: Remap key to execute the command in normal mode.
+- `:vnoremap {keybind} {command}`: Remap key to execute the comamnd in visual mode.
+- `:inoremap {keybind} {command}`: Remap key to execute the command in insert mode.
 
   
 
@@ -642,7 +650,12 @@ Change cell to 'code':
 **Turn on line numbers**
 - {C-o} + shift+L
 
-# Jupyter lab vim
+# Jupyter lab
+
+## Jupyter lab themes
+- https://github.com/topics/jupyterlab-theme
+
+## Jupyter lab vim
 Resource: https://github.com/jupyterlab-contrib/jupyterlab-vim
 **Escape VIM MODE** (so that you can use normal jupyter lab/ jupyter notebook commands)
 	shift + esc
