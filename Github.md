@@ -169,8 +169,9 @@ A copy of the main/ master branch version at the time when the branch is created
 	- It is considered a "commit", hence 1) we will need a commit message (`-m "{text_message}"`) 2) It will show up in git log as a commit node.
 > 	"git merge master" is a good way to keep the branch you are editing, updated to the newest master branch, therefore when it comes time to merge to master branch, only a small amount of non-conflicting code can be commited. (You do not want to be left behind of all the newest changes, before you merge the code. It will make it way harder to resolve conflicts in the future.)
 
-- `git push {optional: flag} {origin} {optional: existing_branch}`
+- `git push {optional: flag} origin {optional: existing_branch}`
 	- Caveat: It can only be pushed if a remote repository is created/ exists and recognized. (If remote repository is created, but not connected: refer to "`git remote add origin {link}`")
+	- "origin" == "remote repository"
 	- flag:
 		- -u/ --set-upstream: "Upstream", Sets the specified branch as the default branch to push to if origin and branch is not specified
 
