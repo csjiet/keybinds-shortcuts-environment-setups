@@ -117,6 +117,7 @@ Source: [https://medium.com/@krishnaregmi/pipenv-vs-virtualenv-vs-conda-environm
 Resources:
 - https://www.earthdatascience.org/courses/intro-to-earth-data-science/python-code-fundamentals/use-python-packages/use-conda-environments-and-install-packages/
 - http://echrislynch.com/2019/02/01/adding-an-environment-to-jupyter-notebooks/
+- [conda for data scientist (one of the best)](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#creating-a-new-environment-as-a-sub-directory-within-a-project-directory)
 
 ----------------------
 
@@ -129,20 +130,40 @@ Resources:
 > $`ipython kernel install --user --name={name_of_new_kernel}`
 - `name_of_kernel` that is created can be anything. But recommended to be the same as the environment, so reduce ambiguities.
 
+- Check ipython kernels installed: `jupyter kernelspec list`
+
 ## 1. (Create a new virtual environment)
-> $`conda create -n {name_of_new_virtual_env} python={version_no}`
+> `conda create --prefix ./env {package_name}={version_no}` 
+> - You will create virtual environment locally as a subdirectory using `--prefix`
+> - Read why it is good to specify a location for conda environment: [read](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#how-do-i-specify-a-location-for-a-conda-environment)
+> BUT, not specifying location, and using `-n` (below) also has its benefit: [read](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#creating-a-new-environment-as-a-sub-directory-within-a-project-directory) (can no longer find your environment with the `--name` flag; you’ll generally need to pass the `--prefix` flag along with the environment’s full path to find the environment.) 
+> 
+> OR 
+> 
+> $`conda create -n {name_of_new_virtual_env} python={version_no} {package_name}={version_no} ...` 
+> - You will create virtual enviroment into default shared location using `-n`
+> - E.g., creating new virtual environment with multiple packages
+> 	-`$ conda create --name basic-scipy-env ipython=7.13 matplotlib=3.1 numpy=1.18 scipy=1.4`
+> 
+> OR
 > $`conda create -n {name_of_new_virtual_env}`
 
 - Common names for virtual environments: If you are storing your environment inside the project folder some common names are `env`, `venv`, `.env`, `.venv`, but besides that, I don't think there are any common conventions.
 
 ## 2. (Activate virtual environment)
+> $`conda activate {location_of_virtual_environment}`  
+> - If you create virtual environment locally as a subdirectory using `--prefix`
+>
+> OR 
+>
 > $`conda activate {name_of_new_virtual_env}`
+> - If you create virtual enviroment into default shared location using `-n`
+
 - After "activating" your chosen virtual environment our terminal will connect to that virtual environment, hence allowing us to see kernel name at the terminal prompt. E.g., (`(virtual_env_name) C:\Users\Jack>`)
 - Deactivate virtual environment
 	- $`conda deactivate`
 
 ## 3. (INSTALL new packages into virtual environment without YAML files)
-> $`pip install {new_package}`
 > $`conda install {new_package}`
 > $`conda install {new_package}={version}`
 > $`conda install -name {name_of_virtual_env} {name_of_new_package}`
@@ -150,16 +171,38 @@ Resources:
 > $`conda install -c conda-forge {name_of_new_package}`
 	- conda-forge (-c means --channel) , using **conda-forge** channel when installing the package. It is bad practice to mix channels. and **conda-forge** currently has the most well maintained and broad range of available libraries.
 
+## (UNINSTALL packages from environment)
+> `conda uninstall {package_name} --name {name_of_virtual_env}`
+
 ## (Cloning an existing virtual environment to a new virtual environment)
 > $`conda create -n {name_of_virtual_env} --clone {cloned_virtual_env}`
 
-## (List ALL virtual environment in kernel)
+## (List ALL VIRTUAL ENVIRONMENT in kernel)
 > $`conda env list`
 
-## (Remove virtual environment from kernel)
+## (Remove/ delete virtual environment from kernel)
+> $`conda remove --name {virtual_env_name} --all`
+> - If you create virtual enviroment into default shared location using `-n`
 > $`conda env remove -n {virtual_env_name}`
+> - If you create virtual enviroment into default shared location using `-n`
+> 
+> OR
+> 
+> $`conda remove --prefix {/path_to_virtual_env_name} --all`
+> - If you create virtual environment locally as a subdirectory using `--prefix`
+> 
+>  OR
+>  
 
-## 4. (List ALL installed packages in virtual environment)
+## 4. (List ALL installed PACKAGES IN THE VIRTUAL ENVIRONMENT)
+> $`conda list --prefix {/path_of_virtual_env}` 
+> 
+> OR
+> 
+> $`conda list --name {name_of_virtual_env}` 
+> 
+> OR
+> 
 > $`conda list`
 
 ## (CREATING YAML)
@@ -181,6 +224,11 @@ Resources:
 
 ## 6. (List all created virtual environments with conda)
 > $`conda env list`
+
+## Other commands:
+[Here](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#:~:text=Key%20Points-,A%20Conda%20environment%20is%20a%20directory%20that%20contains%20a%20specific,activate%20(%20conda%20deactivate%20)%20commands.)
+search to see what versions are available in your virtual environment: `conda search $PACKAGE_NAME`
+Renaming your current environment, or any of your existing environments: `conda rename -n old_env_name new_env_name`
 
 ## (Uninstalling virtual environment from jupyter)
 > $`jupyter kernelspec uninstall envname`

@@ -62,6 +62,7 @@
 (Help manual): `ctrl + b ?`
 
 **(Create windows) ctrl + b c**
+**(Close window)** `ctrl + d`
 
 **(Move to previous window) ctrl + b p**
 
@@ -302,7 +303,55 @@ t{char} - find the closest matching car to the right, but stop BEFORE that chara
 - `:vnoremap {keybind} {command}`: Remap key to execute the comamnd in visual mode.
 - `:inoremap {keybind} {command}`: Remap key to execute the command in insert mode.
 
-  
+# neovim (nvim)
+> Installation:
+> - I installed nvim using `brew install neovim`
+> Config:
+> - To ease first time use: I copied config from [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim), it is supposed to contain the most basic config to get neovim started. 
+> - The image below shows the output generated after copying and pasting it into `.config/nvim/init.lua`, and restarting nvim by typing `nvim`. (Basically a list of plugins that are installed, as recommended by kickstart.nvim)
+![[neovim_kickstart_initlua.png|1000]]
+
+## Help (find all shortcuts)
+(Find keymaps in neovim) - `:Telescope keymaps`
+(Learn how to install nvim plugins) - `:Telescope help_tags`
+
+## General
+
+## Plugin manager
+(Mason plugin manager)
+- `:Mason` - a search bar is provided to find the lsp (language server protocol) - (allows 1. code completion, 2. syntax highlighting, 3. warnings and errors) you want to use
+	- `i` - to install
+
+(Show recently opened files)
+- `<leader><space>`
+
+### Search neovim commands
+(Search Filename across directory) 
+- `<leader>sf`
+(Search word)
+- `<leader>sw`
+(Search by grep)
+- `<leader>sg`
+
+(Search symbol within document) - search "document symbol"
+- `<leader>ds`
+(Search symbol within current directory (workspace dir)) - search "workspace symbol"
+- `<leader>ws`
+(Search keywords within file)
+- `<leader>/`
+
+### lsp commands 
+(Goto Definition (after placing your cursor on text)) 
+- `<leader>gd`
+(Goto References)(see all files that use the text) 
+- `<leader>gr`
+(Goto Implementation) 
+- `<leader>gI`
+
+
+
+
+
 
 # Iterm2 shortcuts
 
@@ -642,6 +691,20 @@ Change cell to 'code':
 
 **Time line of the code within the cell, to see how long it took to run the code in the cell**
 	\%timeit {code}
+
+#### IPython MAGIC commands:
+- Resources:
+	- https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/
+	- https://ipython.readthedocs.io/en/stable/interactive/magics.html
+-  `%run` can execute python code from .py files and .ipynb files
+```python
+# this will execute and show the output from
+# all code cells of the specified notebook
+%run ./two-histograms.ipynb
+```
+
+- `%cat {file_path}`: prints text in a file
+- `%%writefile {file_path}`: Writes text written in the ipython prompt to the file
 
 	
 
