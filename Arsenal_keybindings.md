@@ -37,8 +37,11 @@
 
 # tmux
 
-**(sessions)**
+(general)
+(RE-Source tmux config) `ctrl+b :`, `source-files ~/.tmux.conf`
+(Install plugins stored in `.tmux/` directory) `ctrl+b shift i`
 
+**(sessions)**
 **(start tmux)** tmux
 
 **(Create a new session)** tmux new/ :new
@@ -101,7 +104,6 @@
 (Stop scrolling mode in tmux terminal pane) ctrl + c
 
   
-
   
 
   

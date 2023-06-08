@@ -21,6 +21,9 @@ export PATH="$HOME/neovim/bin:$PATH"
 create`.tmux.conf`, and copy config
 + create `touch $HOME/.tmux.conf`
 + copy config to the file
+Download tmux plugin manager, so that we can enable some plugin commands in `.tmux.conf` (must be done)
+- `git clone git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
+- This will create a new `~/.tmux` directory to store the plugins file
 
 ### Anaconda installation
 - https://clouds.eos.ubc.ca/~phil/docs/problem_solving/01-Orientation/01.05-Installing-Anaconda-on-Linux.html

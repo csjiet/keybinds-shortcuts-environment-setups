@@ -125,12 +125,12 @@ Resources:
 
 ## Prereq
 - Install ipykernel: `conda install -c anaconda ipykernel`
+- `pip install ipykernel`
+- When you use `pip install`, it installs packages directly into the Python environment that is currently active, regardless of whether that environment was created using Conda or not. Pip installs packages into the Python environment based on the Python interpreter's configuration and the active environment.
 
-## 0. (Create and install new kernel into system)
-> $`ipython kernel install --user --name={name_of_new_kernel}`
-- `name_of_kernel` that is created can be anything. But recommended to be the same as the environment, so reduce ambiguities.
+Conda, on the other hand, manages its own separate environments and package installations. Conda creates isolated environments with their own independent package installations, allowing you to manage and control dependencies for different projects or use cases.
 
-- Check ipython kernels installed: `jupyter kernelspec list`
+Running `pip install` within a Conda environment will only affect that specific environment, not the overall Conda installation or other Conda environments.
 
 ## 1. (Create a new virtual environment)
 > `conda create --prefix ./env {package_name}={version_no}` 
@@ -162,6 +162,18 @@ Resources:
 - After "activating" your chosen virtual environment our terminal will connect to that virtual environment, hence allowing us to see kernel name at the terminal prompt. E.g., (`(virtual_env_name) C:\Users\Jack>`)
 - Deactivate virtual environment
 	- $`conda deactivate`
+
+## 2b. (Create and install new kernel into system)
+> $`python -m ipykernel install --user --name=<kernel-name>`
+> - If you create virtual enviroment into default shared location using `-n`
+>  
+> OR
+> 
+> $`ipython kernel install --user --name={name_of_new_kernel}`
+> - If you create virtual enviroment into default shared location using `-n`
+- `name_of_kernel` that is created can be anything. But recommended to be the same as the environment, so reduce ambiguities.
+- Check ipython kernels installed: `jupyter kernelspec list`
+- NOTE: Activate the virtual environment BEFORE attatching to your jupyter kernel
 
 ## 3. (INSTALL new packages into virtual environment without YAML files)
 > $`conda install {new_package}`
