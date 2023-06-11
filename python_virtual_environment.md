@@ -217,7 +217,7 @@ Running `pip install` within a Conda environment will only affect that specific 
 > 
 > $`conda list`
 
-## (CREATING YAML)
+## (CREATING YAML) - before your virtual environment is conda activated
 ## (Creating and tracking your virtual environment packages WITH YAML files)
 > $`conda env create -f environment.yml`
 
@@ -229,7 +229,7 @@ Running `pip install` within a Conda environment will only affect that specific 
 
 > $`conda env update -f {yaml_file_containing_dependencies.yml}`
 
-## 5. (Exporting dependencies/ list of packages in the virtual environment into a YAML file)
+## 5. (Exporting dependencies/ list of packages in the virtual environment into a YAML file) - AFTER virtual environment is conda activated
 >$ `conda env export > environment.yml`
 
 - Notice it is more migration friendly, as it stores all the dependencies properly in a yml file (yml file is commonly used for configuration files and in applicaitons where data is being stored or transmitted)
