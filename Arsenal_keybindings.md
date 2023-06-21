@@ -34,6 +34,8 @@
 
 **(Cancel the current command line command) - ctrl + c**
 
+(Scroll/ cycle through historical commands entered in terminal) - (instead of up arrow) - `ctrl + p`
+
 
 # tmux
 
@@ -710,6 +712,29 @@ Change cell to 'code':
 
 	
 
+# Python Pdb (Python debugger)
+> A helpful replacement to print statements
+
+1. Place `breakpoint()` in your `.py` files - (introduced in Python 3.7) - across lines of code where the debugger stops execution to allow debugging operations.
+2. Run your `.py` files like normal - `python {file-name}.py`
+3. Debugger will start in the console:
+- [Commands](https://docs.python.org/3/library/pdb.html#pdbcommand-step):
+	- `h`: help
+	- `w`: where
+	- `n`: next
+	- `s {func_name}`: step (step into function)
+	- `c`: continue
+	- `r`: return - Continue execution until the current function returns.
+	- `p {variable_name}`: print
+		- `p __return__` : prints value returned by the current function, which has just executed its `return` statement.
+	- `pp {variable_name}`: pretty print, for better readability.
+	- `l`: list
+		- Subsequent entering of `l` / `list`, will show remaining code below. To reset list view, type `list .` (to return to the unexecuted line)
+	- `ll`: longer list
+	- `q`: quit
+	- `''`: comment in pdb to add space for visibility
+	- `ctrl + l`: clear pbd screen
+
 # Jupyter-vim-bindings in jupyter notebooks
 
 **Turn on line numbers**
@@ -739,7 +764,4 @@ https://jupyterlab.readthedocs.io/en/stable/user/extensions.html
 (Resize images) \!\[\{image_name\} \| \{size_int\}\]
 
 (Move current file to another folder): ctrl + shift + m
-
-
-
 

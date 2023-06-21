@@ -55,12 +55,32 @@ A copy of the main/ master branch version at the time when the branch is created
 - The process of combining code from two branches.
 ![[git_merging.png]]
 
-"Forking"
-- Copying an ENTIRE repo to your own repo
+
+"Git fork"/"Forking"
+- Copying an EXISTING repo created as your OWN repo.
 - You would do that if you want to refactor someone's (a random guys) entire repo, because you want to make changes to multiple branches, even if you are not assigned that branch, while you are not the owner. OR you just feel like experimenting with other people's code for fun. (It is similar to cloning people repo, create you own repo, copy their entire repo to your newly created repo, and commiting to your local repo, and pushing to you remote repo)
 - Similar to merging to base (the master branch) in branch merging, we have repository merging.
 - We can create a "pull request" to merge the "forked repo" to the "base repo", or go more intricately, and merge the "fork repo's specific branch" to the "base repo's same branch"
+- `git clone` vs `git fork`
+	- `git clone`: 
+		- a command used to create an independent copy of an existing Git repository, including all its commit history, branches, and files. This allows you to have your own local copy of the original repository, so that **you can contribute directly to the original repository**, if the original repository has granted you the necessary permissions. 
+	- `git fork`: 
+		- a command used to create an independent copy of an existing Git repository, including all its commit history, branches, and files. BUT this copy is independent of the original repository and exists as a separate entity. You can think of it as creating your own personal copy of someone else's repository, **so you can only contribute to your own forked repository without affecting the original repository**. 
+			- However, you can create branches, and eventually contribute to the original repo by making pull requests, and collaborate with others using your forked repository.
 
+"Git ignore"
+- To ignore files/ directories when committing to local repo/ pushing to remote repo.
+- Git ignore a directory (recursively) 
+	- Create a `touch .gitignore` file
+	- Add the line `/{directory_name}/` in the file - directory you want to ignore during commits, and remote push. 
+		- ***(a forward slash (/) at the beginning of the directory name to indicate that it should be ignored recursively.)***
+	- `git add .gitignore`
+	- `git commit -m "Add .gitignore"`
+- Git ignore a file 
+	- Create a `touch .gitignore` file
+	- Add the line `path/to/{file_name}` in the file (can be relative path) - directory you want to ignore during commits, and remote push.
+	- `git add .gitignore`
+	- `git commit -m "Add .gitignore"`
 
 ------
 
