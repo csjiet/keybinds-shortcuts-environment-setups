@@ -187,11 +187,20 @@ RUN TERMINAL COMMAND FROM WITHIN VIM
 
 
 **OPENING AND SPLITTING MULTIPLE FILES FROM WITHIN VIM**
+Vim split prefix: `ctrl+w`
+(Split file horizontall) -`ctrl+w s` or  `:sp <another_filename>` 
 
-(Split file horizontall) - :split <another_filename>
+(Split file vertically)  -  `ctrl+w v` or  `:vs <another_filename>`
 
-(Split file vertically)  - :vsplit <another_filename>
-
+- Operation after split(s)
+	- (Jump to split window using direction) - `ctrl+w {h/j/k/l}`
+	- (Jump to next split window) - `ctrl + w w`
+	- (Open file name at current cursored window) - `:e {filename}`
+	- (Look at files in current directory to open in netrw) - `:Ex`
+	- (View all opened vim buffers/ windows): `:buffers`
+	- (Maximize current WIDTH of buffer/ window): `ctrl+w |`
+	- (Maximize current HEIGHT of buffer/ window): `ctrl+w -`
+	- (Reset all buffer/ window size so that they are ALL EQUAL dimensions): `ctrl+w =`
   
 
 **(insert at the END of the line) -** A
@@ -201,6 +210,8 @@ RUN TERMINAL COMMAND FROM WITHIN VIM
 **(horizontal split) -** :sp {filename}
 
 **(vertical split) - :**vs {filename}
+
+(Insert at the start of the highlighted columns across all highlighted lines): `ctrl+v`, `(highlight column and lines)` , `shift+i`, `(type away)`
 
 
 ### (Horizontal movement) 
@@ -757,6 +768,15 @@ Resource: https://github.com/jupyterlab-contrib/jupyterlab-vim
 Check jupyterlab extension
 https://jupyterlab.readthedocs.io/en/stable/user/extensions.html
 
+# VSCODE
+> Edit the `keybindings.json` file in vscode
+> 1. Open command pallete: `shift + cmd + p`
+> 2. Search for `Preferences: Open Keyboard Shortcuts (JSON)`
+> 3. Enter `key`, `command`, `when` identifiers. 
+> 	1. `command`: can be found here: [link](https://code.visualstudio.com/docs/getstarted/keybindings#_basic-editing)
+> 	2. `key, command` : can also be queried using ChatGPT
+
+(close side panel): `cmd + b`
 
 
 # Obsidian
