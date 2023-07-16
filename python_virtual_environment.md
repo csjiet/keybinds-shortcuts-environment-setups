@@ -164,6 +164,7 @@ Running `pip install` within a Conda environment will only affect that specific 
 	- $`conda deactivate`
 
 ## 2b. (Create and install new kernel into system)
+- Check ipython kernels installed: `jupyter kernelspec list` (so that you don't create too many ipykernels) 
 > $`python -m ipykernel install --user --name=<kernel-name>`
 > - If you create virtual enviroment into default shared location using `-n`
 >  
@@ -172,8 +173,9 @@ Running `pip install` within a Conda environment will only affect that specific 
 > $`ipython kernel install --user --name={name_of_new_kernel}`
 > - If you create virtual enviroment into default shared location using `-n`
 - `name_of_kernel` that is created can be anything. But recommended to be the same as the environment, so reduce ambiguities.
-- Check ipython kernels installed: `jupyter kernelspec list`
 - NOTE: Activate the virtual environment BEFORE attatching to your jupyter kernel
+- `VScode`: Install the `"Jupyter" extension` before getting started. If not, it will not detect any kernels in your system.
+
 
 ## 3. (INSTALL new packages into virtual environment without YAML files)
 > $`conda install {new_package}`

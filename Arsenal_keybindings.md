@@ -198,6 +198,8 @@ Vim split prefix: `ctrl+w`
 	- (Open file name at current cursored window) - `:e {filename}`
 	- (Look at files in current directory to open in netrw) - `:Ex`
 	- (View all opened vim buffers/ windows): `:buffers`
+	- (Increase/ decrease width of buffers): `ctrl+w >/<`
+	- (Increase/ decrease height of buffers): `ctrl+w +/-`
 	- (Maximize current WIDTH of buffer/ window): `ctrl+w |`
 	- (Maximize current HEIGHT of buffer/ window): `ctrl+w -`
 	- (Reset all buffer/ window size so that they are ALL EQUAL dimensions): `ctrl+w =`
