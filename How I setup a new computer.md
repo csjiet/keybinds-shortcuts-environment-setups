@@ -1,7 +1,15 @@
 
 ### Neovim
+
+[Build prerequisites](https://github.com/neovim/neovim/wiki/Building-Neovim)
+- (Build prerequisites): Ubuntu/ Debian: `sudo apt-get install ninja-build gettext cmake unzip curl`
 Install neovim "from source"
 - [neovim from source](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-source), but with additional commands to make installation isolated at `$HOME` which is stated explicitly in the github readme.
+```
+make CMAKE_BUILD_TYPE=Release
+sudo make install
+```
+
 ```
 rm -r build/  # clear the CMake cache
 make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim"

@@ -71,16 +71,21 @@ A copy of the main/ master branch version at the time when the branch is created
 "Git ignore"
 - To ignore files/ directories when committing to local repo/ pushing to remote repo.
 - Git ignore a directory (recursively) 
-	- Create a `touch .gitignore` file
-	- Add the line `/{directory_name}/` in the file - directory you want to ignore during commits, and remote push. 
+	1) Create a `touch .gitignore` file
+	2) Add the line `/{directory_name}/` in the file - directory you want to ignore during commits, and remote push. 
 		- ***(a forward slash (/) at the beginning of the directory name to indicate that it should be ignored recursively.)***
-	- `git add .gitignore`
-	- `git commit -m "Add .gitignore"`
+	- Example:
+		- `/dir1/`
+	3) `git add .gitignore`
+	4) `git commit -m "Add .gitignore"`
 - Git ignore a file 
-	- Create a `touch .gitignore` file
-	- Add the line `path/to/{file_name}` in the file (can be relative path) - directory you want to ignore during commits, and remote push.
-	- `git add .gitignore`
-	- `git commit -m "Add .gitignore"`
+	1) Create a `touch .gitignore` file
+	2) Add the line `file_name` or `path/to/{file_name}` in the file (can be relative path) - directory you want to ignore during commits, and remote push.
+	- Example:
+		- `filename`
+		- `*.extension` (ignores all files that has that `extension`)
+	1) `git add .gitignore`
+	2) `git commit -m "Add .gitignore"`
 
 ------
 
@@ -163,23 +168,24 @@ A copy of the main/ master branch version at the time when the branch is created
 
 
 - `git branch -{optional: flag} {optional: name_of_branch}`
-	- Shows the branches (if we only enter: "git branch" in the terminal), where an (\*) astrisks is used to denote the branch you are currently working on, press 'q' to exit branch view mode.
+	- Shows the branches (if we only enter: "git branch" in the terminal), where in the output, there is an (\*) astrisks beside the current branch name to denote the branch you are currently working on, press 'q' to exit branch view mode.
 	- flags:
 		- -d {name_of_branch}: Deletes branch in local repo
 - `git push origin --delete feature/login`
 	- Deletes branch in remote repo
 
 - `git checkout`
-		- Use: 1) Switch branches, 2) Restore working tree files
-			- There are also new commands that do the two operations above separately - git switch, git restore (which is newly created to reduce confusion, https://stackoverflow.com/questions/57265785/whats-the-difference-between-git-switch-and-git-checkout-branch )
-			- ![[git_checkout_vs_switch_and_restore.png | 500]]
-	- git checkout {another_existing_branch}
-		- Changes your current branch to another existing branch
-	- git checkout -b {new_branch} 
-		- Creates and changes you current branch to the new branch.
-		- "new_branch" Naming convention: 
-			- "feature/{new_branch_name}"
-			- "feature-issue_no-{...}-{new_branch_name}"
+	- [Types of Git branches](https://gist.github.com/digitaljhelms/4287848)
+	- Use: 1) Switch branches, 2) Restore working tree files
+		- There are also new commands that do the two operations above separately - git switch, git restore (which is newly created to reduce confusion, https://stackoverflow.com/questions/57265785/whats-the-difference-between-git-switch-and-git-checkout-branch )
+		- ![[git_checkout_vs_switch_and_restore.png | 500]]
+- git checkout {another_existing_branch}
+	- Changes your current branch to another existing branch
+- git checkout -b {new_branch} 
+	- Creates and changes you current branch to the new branch.
+	- "new_branch" Naming convention: 
+		- "feature/{new_branch_name}"
+		- "feature-issue_no-{...}-{new_branch_name}"
 - `git diff {optional: compare_branch_name}`
 	-  Compares the code in the current branch, with you last commit in the same current branch. (Where the '+' symbols denotes that it is a new change)
 	- {compare_branch_name}
@@ -190,8 +196,19 @@ A copy of the main/ master branch version at the time when the branch is created
 > 	"git merge master" is a good way to keep the branch you are editing, updated to the newest master branch, therefore when it comes time to merge to master branch, only a small amount of non-conflicting code can be commited. (You do not want to be left behind of all the newest changes, before you merge the code. It will make it way harder to resolve conflicts in the future.)
 
 - `git push {optional: flag} origin {optional: existing_branch}`
-	- Caveat: It can only be pushed if a remote repository is created/ exists and recognized. (If remote repository is created, but not connected: refer to "`git remote add origin {link}`")
-	- "origin" == "remote repository"
-	- flag:
-		- -u/ --set-upstream: "Upstream", Sets the specified branch as the default branch to push to if origin and branch is not specified
+
+Pushing a branch to remote git 
+```
+$ git push origin feature-id                        // makes the new feature remotely available
+```
+
+Pushing to master
+```
+$ git push origin master
+```
+
+- Caveat: It can only be pushed if a remote repository is created/ exists and recognized. (If remote repository is created, but not connected: refer to "`git remote add origin {link}`")
+- "origin" == "remote repository"
+- flag:
+	- -u/ --set-upstream: "Upstream", Sets the specified branch as the default branch to push to if origin and branch is not specified
 

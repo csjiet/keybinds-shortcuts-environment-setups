@@ -133,10 +133,12 @@ Conda, on the other hand, manages its own separate environments and package inst
 Running `pip install` within a Conda environment will only affect that specific environment, not the overall Conda installation or other Conda environments.
 
 ## 1. (Create a new virtual environment)
-> `conda create --prefix ./env {package_name}={version_no}` 
+> `conda create --prefix ./env {python}={version_no} {package_name}={version_no}` 
 > - You will create virtual environment locally as a subdirectory using `--prefix`
 > - Read why it is good to specify a location for conda environment: [read](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#how-do-i-specify-a-location-for-a-conda-environment)
 > BUT, not specifying location, and using `-n` (below) also has its benefit: [read](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#creating-a-new-environment-as-a-sub-directory-within-a-project-directory) (can no longer find your environment with the `--name` flag; you’ll generally need to pass the `--prefix` flag along with the environment’s full path to find the environment.) 
+> - `Why is it important to specify python version?`
+> 	- So that the installed packages by calling `conda install {package_name}` will all store in the correct `/bin/python{version}`
 > 
 > OR 
 > 
@@ -165,8 +167,9 @@ Running `pip install` within a Conda environment will only affect that specific 
 
 ## 2b. (Create and install new kernel into system)
 - Check ipython kernels installed: `jupyter kernelspec list` (so that you don't create too many ipykernels) 
-> $`python -m ipykernel install --user --name=<kernel-name>`
+> $`python{version} -m ipykernel install --user --name=<kernel-name>`
 > - If you create virtual enviroment into default shared location using `-n`
+> - `python{version}` is important, because you specify where your future `conda install` command will call your packages from?
 >  
 > OR
 > 
@@ -226,15 +229,51 @@ Running `pip install` within a Conda environment will only affect that specific 
 - **Good practices**
 	`Save all info (package dependencies installed) necessary to recreate the environment in a file by calling`:
 
-## (IMPORT & EXPORT YAML)
-## (Importing dependecies/ list of packages from a YAML file to the current environment)
 
-> $`conda env update -f {yaml_file_containing_dependencies.yml}`
+## 5. (Exporting dependencies/ list of packages in the virtual environment into a `environment.yml` or `requirements.txt`) - AFTER virtual environment is conda activated
+-----
+## `environments.yml`
+### Exporting: `environments.yml`
+Creating/ exporting dependencies from conda TO a YAML file 
+- Use: Checks conda and creates `environments.yml`
+> $`conda env export > environment.yml`
 
-## 5. (Exporting dependencies/ list of packages in the virtual environment into a YAML file) - AFTER virtual environment is conda activated
->$ `conda env export > environment.yml`
+
+### Importing: `environments.yml`
+Importing dependencies from a YAML file with conda
+- ==Note: (`environment.yml` must already exist)==
+
+**environment.yml $\rightarrow$ conda (if virtual environment is not created)**
+- Virtual environment is in local directory
+> $`conda env create --prefix ./my_env -f environment.yml`
+
+- Virtual environment is in shared location
+	- Use: Checks `environment.yml` and creates conda.
+> $ `conda env create -f environment.yml`
+
+**environment.yml $\rightarrow$ conda (if virtual environment is already been created + activated)**
+Installing dependencies listed in a YAML file with conda (if new packages are installed or uninstalled from conda) 
+- Use: Checks `environments.yml` and downloads listed dependencies 
+- Virtual environment is in local directory
+>$ `conda env update --file environment.yml --prune`
+- If conda virtual environment has already been activated, `--prefix` can be omitted.
+OR
+> $`conda env update -p {path_to_env_dir} -f environment.yml`
+- `If CondaValueError: Invalid environment name: 'xxx' Characters not allowed: {'/', ' ', '#', ':'} If you are specifying a path to an environment, the `-p` flag should be used instead.` is produced
+- Flags:
+	- `--prune`: uninstalls dependencies which were removed from `environment.yml`.
+
+## `requirements.txt`
+### Exporting: `requirements.txt`
+- Creating a requirements.txt file with conda
+>$ `conda list > requirements.txt`
 
 - Notice it is more migration friendly, as it stores all the dependencies properly in a yml file (yml file is commonly used for configuration files and in applicaitons where data is being stored or transmitted)
+
+### Importing: `requirements.txt`
+> $`conda install --file requirements.txt`
+
+-----
 
 ## 6. (List all created virtual environments with conda)
 > $`conda env list`
