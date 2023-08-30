@@ -722,6 +722,8 @@ Change cell to 'code':
 
 - `%cat {file_path}`: prints text in a file
 - `%%writefile {file_path}`: Writes text written in the ipython prompt to the file
+- `{function_identifier}??`: It will display the source code and docstring directly within the notebook interface - (if you are interested to read the documentation for that function/ how to use it).
+
 
 	
 

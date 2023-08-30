@@ -35,22 +35,6 @@ git push, SSH setup
 	- You can check comments, you commits, changes to the branch you have submitted for pull request.
 - Terminal git: (local repository - where the primary changes are done), where additional commands is required to push to remote repo.
 
-## Git branching
-A copy of the main/ master branch version at the time when the branch is created.
-"Branching"
-- A branch is like a buffer for code. Changes to specific branches does not affect other branches.
-- Keep in mind in larger code bases, there could be nested branches. It acts as a buffer before reaching the master branch. Kind of like how multiple bosses has to review the code before the final CEO (master) can approve for production. People often use branch names like: dev branch, staging branch for that purpose, where these branch never gets deleted, but acts as a place for other pulled request branches to reside.
-- Type of branches:
-	- Master branch (The main implementation)
-	- Feature branch
-		- ![[git_feature_branching.png]]
-	- Hot fix branch
-		- ![[git_hot_fix_branching.png]]
-	- Staging branch
-	- Dev branch
-- State of branches:
-	- "Open" (A branch that has not been merged)
-	- "Merged" (A branch that has already been merged)
 "Merging"
 - The process of combining code from two branches.
 ![[git_merging.png]]
@@ -75,9 +59,10 @@ A copy of the main/ master branch version at the time when the branch is created
 	2) Add the line `/{directory_name}/` in the file - directory you want to ignore during commits, and remote push. 
 		- ***(a forward slash (/) at the beginning of the directory name to indicate that it should be ignored recursively.)***
 	- Example:
-		- `/dir1/`
-	3) `git add .gitignore`
-	4) `git commit -m "Add .gitignore"`
+		- `dir1/`
+		- `.hidden_dir/`
+	1) `git add .gitignore`
+	2) `git commit -m "Add .gitignore"`
 - Git ignore a file 
 	1) Create a `touch .gitignore` file
 	2) Add the line `file_name` or `path/to/{file_name}` in the file (can be relative path) - directory you want to ignore during commits, and remote push.
@@ -86,6 +71,18 @@ A copy of the main/ master branch version at the time when the branch is created
 		- `*.extension` (ignores all files that has that `extension`)
 	1) `git add .gitignore`
 	2) `git commit -m "Add .gitignore"`
+- Removing tracked files
+	- If you want to remove a file that is already being tracked by Git, you can add the `-cached` option to remove the file from the repository but keep it in your working directory. This is useful when you want to stop tracking the file but retain your local copy:
+``` bash
+# Remove tracked files
+git rm --cached path/to/your/file
+```
+
+``` bash
+# Remove tracked directory 
+git rm -r --cached path/to/your/dir
+```
+
 
 ------
 
@@ -129,9 +126,24 @@ A copy of the main/ master branch version at the time when the branch is created
 	- -am {commit message}: Commits the "staged code" at index to the local repository. (Note that code has to be staged and recognized by the Index before it can be committed.(This can only be used on "tracked" file/ files that was staged before,and are currently just "modifiying")
 
 ## Git branching
-A copy of the main/ master branch version at the time when the branch is created.
 - Resources:
 	- [Youtube video: Git branching and merging - Detailed tutorial](https://www.youtube.com/watch?v=Q1kHG842HoI)
+A copy of the main/ master branch version at the time when the branch is created.
+
+"Branching"
+- A branch is like a buffer for code. Changes to specific branches does not affect other branches.
+- Keep in mind in larger code bases, there could be nested branches. It acts as a buffer before reaching the master branch. Kind of like how multiple bosses has to review the code before the final CEO (master) can approve for production. People often use branch names like: dev branch, staging branch for that purpose, where these branch never gets deleted, but acts as a place for other pulled request branches to reside.
+- Type of branches:
+	- Master branch (The main implementation)
+	- Feature branch
+		- ![[git_feature_branching.png]]
+	- Hot fix branch
+		- ![[git_hot_fix_branching.png]]
+	- Staging branch
+	- Dev branch
+- State of branches:
+	- "Open" (A branch that has not been merged)
+	- "Merged" (A branch that has already been merged)
 
 - `git log {optional: options}`
 	- Shows commit logs of your ENTIRE REMOTE REPO currently pulled into your LOCAL REPO. 
@@ -166,14 +178,14 @@ A copy of the main/ master branch version at the time when the branch is created
 	- HEAD{optional:~{n commits before}}: uncommits the last N commits further starting from the last commit.
 	- {commit_hash}: An identifier given to a specific commit. (This identifier can be found after using the "git log" command).
 
+Show and delete git branch
+- `git branch -a`: Show local and remote branches 
+- `git branch -r`: Show only remote branches
+- `git branch`: Show only local branches 
+- `git branch -d {name_of_branch}`: Deletes branch in local repo
+- `git push origin --delete feature/login`: Deletes branch in remote repo.
 
-- `git branch -{optional: flag} {optional: name_of_branch}`
-	- Shows the branches (if we only enter: "git branch" in the terminal), where in the output, there is an (\*) astrisks beside the current branch name to denote the branch you are currently working on, press 'q' to exit branch view mode.
-	- flags:
-		- -d {name_of_branch}: Deletes branch in local repo
-- `git push origin --delete feature/login`
-	- Deletes branch in remote repo
-
+Switch between git branches
 - `git checkout`
 	- [Types of Git branches](https://gist.github.com/digitaljhelms/4287848)
 	- Use: 1) Switch branches, 2) Restore working tree files

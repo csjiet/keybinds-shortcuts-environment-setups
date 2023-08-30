@@ -167,6 +167,12 @@ Running `pip install` within a Conda environment will only affect that specific 
 
 ## 2b. (Create and install new kernel into system)
 - Check ipython kernels installed: `jupyter kernelspec list` (so that you don't create too many ipykernels) 
+
+-  IF You will create virtual environment locally as a subdirectory using `--prefix`, and you want to create a kernel within your virtual environment:
+> $ `conda install jupyter`
+> $ `conda install ipykernel`
+> $`python{version} -m ipykernel install --user --name=<kernel-name>`
+- Else
 > $`python{version} -m ipykernel install --user --name=<kernel-name>`
 > - If you create virtual enviroment into default shared location using `-n`
 > - `python{version}` is important, because you specify where your future `conda install` command will call your packages from?

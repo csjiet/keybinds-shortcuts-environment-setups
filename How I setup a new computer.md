@@ -34,13 +34,16 @@ Download tmux plugin manager, so that we can enable some plugin commands in `.tm
 - This will create a new `~/.tmux` directory to store the plugins file
 
 ### Anaconda installation
-- https://clouds.eos.ubc.ca/~phil/docs/problem_solving/01-Orientation/01.05-Installing-Anaconda-on-Linux.html
-- Go to anaconda official website and locate the download link for your operating system.
+- Go to [anaconda official website](https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh) and locate the download link for your operating system.
 - Copy the link 
-- Create a temp file in $HOME directory, `cd` into it.
+- Create a temp file in your intended destination directory, `cd` into it.
 - In terminal, use wget to install `wget {copied_installer_link}`
 - Run the shell script that is installed: e.g., `bash Anaconda3-5.2.0-Linux-x86_64.sh`
 - [Follow remaining steps](https://clouds.eos.ubc.ca/~phil/docs/problem_solving/01-Orientation/01.05-Installing-Anaconda-on-Linux.html)
+- In the end a `conda init` script will be appended to your terminal configuration file (e.g., `.bashrc`), which helps your terminal identify anaconda as default python to use/ run. 
+	- Check if the correct "anaconda python" is used as default using: `which python`. 
+	- If python path does not display the correct path e.g.,(`xxx/xxx/anaconda/bin/python`): then you need to copy the `export PATH="/xx/xx/anaconda3/bin:$PATH"` snippet from the appended script (usually nested within the if-else statement of the conda initialize script), and place it outside for a more visible scope.
+> anaconda python affects: `python`, `python3`, `pip` commands and installation.
 
 ## vscode
 - Jupyter notebook extension
