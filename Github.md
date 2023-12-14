@@ -34,6 +34,17 @@ git push, SSH setup
 	- There is a button called "Pull requests" at the navigation bar. 
 	- You can check comments, you commits, changes to the branch you have submitted for pull request.
 - Terminal git: (local repository - where the primary changes are done), where additional commands is required to push to remote repo.
+- Typical workflow if we use a pull request:
+	- **Fork the Repository**
+	- **Clone Your Fork**
+	- **Create a New Branch**
+	- **Make and Commit Changes**
+	- **Push to Your OWN Remote Fork**
+		- You push the changes from your local branch to your forked repository on GitHub. This step updates your fork with the changes you've made.
+		- We do not push to "upstream" - original repo that was forked.
+	- **Create a Pull Request**
+	- **PR Discussion and Review**
+	- **Merging the PR**
 
 "Merging"
 - The process of combining code from two branches.
@@ -109,17 +120,18 @@ git rm -r --cached path/to/your/dir
 		- "untracked" (git has no idea about this file)
 
 - `git add {target}`
-	- Asks git to "add" all "untracked" files IN the local workspace by "staging" it TO "the Index".
+	- "Staging" operation: Asks git to "add" all "untracked" files IN the local workspace by "staging" it TO "the Index".
 	- Target:
 		- --all
 		- .
 		- {filename}
 		
-- UNDO STAGING: git reset {optional: name_of_the_file}
-	- Unstage all staged files from the Index 
+- UNDO STAGING:  `git reset `
+	- `git reset {optional: name_of_the_file}`  - undos staging for only the named files. 
+	- Unstage all staged files (after using `git add`) from the Index 
 	- {optional: name_of_the_file}
 		- unstage the specified file from the Index
-	- When you type git staus again, you will see that the files are "unstaged and modified"
+	- When you type git status again, you will see that the files are "unstaged and modified"
 
 - `git commit -{flag} {commit message} {optional: {description of the commit message}}`
 	- -m {commit message}: Commits the "staged code" at index to the local repository. (Note that code has to be staged and recognized by the Index before it can be committed.)
@@ -194,7 +206,7 @@ Switch between git branches
 - git checkout {another_existing_branch}
 	- Changes your current branch to another existing branch
 - git checkout -b {new_branch} 
-	- Creates and changes you current branch to the new branch.
+	- Creates a new branch. Creates a copy from the main branch.
 	- "new_branch" Naming convention: 
 		- "feature/{new_branch_name}"
 		- "feature-issue_no-{...}-{new_branch_name}"
@@ -207,13 +219,57 @@ Switch between git branches
 	- It is considered a "commit", hence 1) we will need a commit message (`-m "{text_message}"`) 2) It will show up in git log as a commit node.
 > 	"git merge master" is a good way to keep the branch you are editing, updated to the newest master branch, therefore when it comes time to merge to master branch, only a small amount of non-conflicting code can be commited. (You do not want to be left behind of all the newest changes, before you merge the code. It will make it way harder to resolve conflicts in the future.)
 
+Deleting merged branches
+1. Check for merged branches
+```
+git branch --merged
+```
+2. Delete merged branches
+```
+git branch -d {branch_name}
+```
+- Git will prevent you from deleting a branch with the command below if the two branches are not merged.
+- Force delete a branch, even if it contains unmerged changes.
+```
+git branch -D {branch_name}
+```
+
+Pushing a branch to remote repo
+- By default, when you stage (`git add`), commit (`git commit`), and push (`git push`) code, Git does not automatically push the branch to the remote repository. Instead, it only affects your local repository:
+- To push a created branch into the remote repository: When you run `git push`, you specify the remote repository and branch you want to push.
+```
+git checkout <branch-name>
+git push origin my-feature-branch
+```
+- 1. Ensure that you are in the local branch you want to push
+- 2. Push the branch to GitHub
+
+1.
+
+# Git pull
+
+Pull changes from upstream remote (e.g., you forked a repo, and upstream is the original repo that was forked)
+```
+$ git remote add upstream {upstream_git_link}
+$ git fetch upstream
+$ git merge upstream/{remote_branch_name}
+```
+- Then resolve conflicts
+If this is done in a terminal, a GNU nano text editor will be brought up as the default Git commit message editor or for resolving merge conflicts interactively.
+- To save your changes and exit `nano`, press `Ctrl` + `O`, then press `Enter`, and finally press `Ctrl` + `X`.
+- To navigate and edit the text in `nano`, use the arrow keys and standard text editing commands.
+	- We can use vim instead:
+	- `git config --global core.editor vim`
+
+# Git push
+> If you want to submit a "pull request" using a forked repo, we typically do not need to "push" to the remote upstream.
+
 - `git push {optional: flag} origin {optional: existing_branch}`
 
 Pushing a branch to remote git 
 ```
 $ git push origin feature-id                        // makes the new feature remotely available
 ```
-
 Pushing to master
 ```
 $ git push origin master

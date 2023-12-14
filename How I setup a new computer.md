@@ -2,9 +2,20 @@
 ### Neovim
 
 [Build prerequisites](https://github.com/neovim/neovim/wiki/Building-Neovim)
-- (Build prerequisites): Ubuntu/ Debian: `sudo apt-get install ninja-build gettext cmake unzip curl`
+- (Build prerequisites): Ubuntu/ Debian: 
+```
+sudo apt-get install ninja-build gettext cmake unzip curl
+```
+```
+git clone https://github.com/neovim/neovim
+```
+```
+cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
+```
 Install neovim "from source"
 - [neovim from source](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-source), but with additional commands to make installation isolated at `$HOME` which is stated explicitly in the github readme.
+
+> This one below might not need if we execute the next one. Try, and if so delete this.
 ```
 make CMAKE_BUILD_TYPE=Release
 sudo make install
@@ -34,7 +45,7 @@ Download tmux plugin manager, so that we can enable some plugin commands in `.tm
 - This will create a new `~/.tmux` directory to store the plugins file
 
 ### Anaconda installation
-- Go to [anaconda official website](https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh) and locate the download link for your operating system.
+- Go to [anaconda official website](https://repo.anaconda.com/archive/) (or [scroll to the bottom](https://www.anaconda.com/download)) and locate the download link for your operating system.
 - Copy the link 
 - Create a temp file in your intended destination directory, `cd` into it.
 - In terminal, use wget to install `wget {copied_installer_link}`

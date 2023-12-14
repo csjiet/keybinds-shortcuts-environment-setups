@@ -24,17 +24,15 @@
 
 # Terminal
 
-**(Go to begining of the console line) - ctrl + a**
-
-**(Go to end of the console line) - ctrl + e**
-
-**(Reverse delete/ delete to the right) - ctrl + d**
-
-**(Clear to the LEFT till the beginning line) - ctrl + u**
+**(Go to begining of the console line)** - `ctrl + a`
+**(Go to end of the console line)** - `ctrl + e`
+(**Move cursor forward**) - `ctrl + f`
+(**Move cursor backward**) - `ctrl + b`
+**(Reverse delete/ delete to the right)** - `ctrl + d`
 
 **(Cancel the current command line command) - ctrl + c**
 
-(Scroll/ cycle through historical commands entered in terminal) - (instead of up arrow) - `ctrl + p`
+(Cycle through historical commands entered in terminal) - (instead of up arrow) - `ctrl + p`
 
 
 # tmux
@@ -788,4 +786,10 @@ https://jupyterlab.readthedocs.io/en/stable/user/extensions.html
 (Resize images) \!\[\{image_name\} \| \{size_int\}\]
 
 (Move current file to another folder): ctrl + shift + m
+
+
+# LaTEX 
+Setup: [Youtube](https://www.youtube.com/watch?v=CmagZthwhaY)
+
+
 

@@ -5,6 +5,223 @@ Source: [https://medium.com/@krishnaregmi/pipenv-vs-virtualenv-vs-conda-environm
 # WARNING
 > **WARNING**: Please do not intermingle the use of >1 package manager - CHOOSE ONE TYPE OF PACKAGE MANAGER - I AM USING REGULAR PIP. This is because the use of different package managers affects the PATH where default installations go to. Hence causing ambiguity or packages that does not work properly. If different installations lead to different installed location/ path, then packages/ dependencies can become segregated, as different package mangers assumes different places where you want your installation to go. (I have personally had the trouble uninstalling packages, deleting directories and package managers for an entire day, when I attempted to install tensorflow, which i failed, where I later discovered a "system-path-installation-confusion" in my system caused by my early installations from different package managers and software: homebrew, conda, pip, python installations.)
 
+----------------------
+# Conda
+- Conda is a package, dependency, and virtual environment (environment) MANAGER. For languages: Python, R, Ruby, Lua, Scala, Java, JavaScript, C/ C++, Fotran, and more...
+3) conda (USED because nobody wants to install xxx this will work as long as you have python, because anaconda (conda) is a distribution of python, and it produces a yml file, which is more consistent)
+
+Resources:
+- https://www.earthdatascience.org/courses/intro-to-earth-data-science/python-code-fundamentals/use-python-packages/use-conda-environments-and-install-packages/
+- http://echrislynch.com/2019/02/01/adding-an-environment-to-jupyter-notebooks/
+- [conda for data scientist (one of the best)](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#creating-a-new-environment-as-a-sub-directory-within-a-project-directory)
+
+----------------------
+
+> Contents are numbered suggesting priority and most likely used, and separating the superfluous.
+
+### Prerequisites to setup conda
+- Install ipykernel: `conda install -c anaconda ipykernel`
+- `pip install ipykernel`
+- When you use `pip install`, it installs packages directly into the Python environment that is currently active, regardless of whether that environment was created using Conda or not. Pip installs packages into the Python environment based on the Python interpreter's configuration and the active environment.
+
+Conda, on the other hand, manages its own separate environments and package installations. Conda creates isolated environments with their own independent package installations, allowing you to manage and control dependencies for different projects or use cases.
+
+Running `pip install` within a Conda environment will only affect that specific environment, not the overall Conda installation or other Conda environments.
+
+### Steps to setup the conda virtual environment
+### 1. (Create a new virtual environment)
+> `conda create --prefix ./env {python}={version_no} {package_name}={version_no}` 
+> - You will create virtual environment locally as a subdirectory using `--prefix`
+> - Read why it is good to specify a location for conda environment: [read](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#how-do-i-specify-a-location-for-a-conda-environment)
+> BUT, not specifying location, and using `-n` (below) also has its benefit: [read](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#creating-a-new-environment-as-a-sub-directory-within-a-project-directory) (can no longer find your environment with the `--name` flag; you’ll generally need to pass the `--prefix` flag along with the environment’s full path to find the environment.) 
+> - `Why is it important to specify python version?`
+> 	- So that the installed packages by calling `conda install {package_name}` will all store in the correct `/bin/python{version}`
+> 
+> OR 
+> 
+> $`conda create -n {name_of_new_virtual_env} python={version_no} {package_name}={version_no} ...` 
+> - You will create virtual enviroment into default shared location using `-n`
+> - E.g., creating new virtual environment with multiple packages
+> 	-`$ conda create --name basic-scipy-env ipython=7.13 matplotlib=3.1 numpy=1.18 scipy=1.4`
+> 
+> OR
+> $`conda create -n {name_of_new_virtual_env}`
+
+- Common names for virtual environments: If you are storing your environment inside the project folder some common names are `env`, `venv`, `.env`, `.venv`, but besides that, I don't think there are any common conventions.
+
+### 2. (Activate virtual environment)
+> $`conda activate {location_of_virtual_environment}`  
+> - If you create virtual environment locally as a subdirectory using `--prefix`
+>
+> OR 
+>
+> $`conda activate {name_of_new_virtual_env}`
+> - If you create virtual enviroment into default shared location using `-n`
+
+- After "activating" your chosen virtual environment our terminal will connect to that virtual environment, hence allowing us to see kernel name at the terminal prompt. E.g., (`(virtual_env_name) C:\Users\Jack>`)
+- Deactivate virtual environment
+	- $`conda deactivate`
+
+### 2b. (Create and install new kernel into system)
+- Check ipython kernels installed: `jupyter kernelspec list` (so that you don't create too many ipykernels) 
+
+-  IF You will create virtual environment locally as a subdirectory using `--prefix`, and you want to create a kernel within your virtual environment:
+> $ `conda install jupyter`
+> $ `conda install ipykernel`
+> $`python{version} -m ipykernel install --user --name=<kernel-name>`
+- Else
+> $`python{version} -m ipykernel install --user --name=<kernel-name>`
+> - If you create virtual enviroment into default shared location using `-n`
+> - `python{version}` is important, because you specify where your future `conda install` command will call your packages from?
+>  
+> OR
+> 
+> $`ipython kernel install --user --name={name_of_new_kernel}`
+> - If you create virtual enviroment into default shared location using `-n`
+- `name_of_kernel` that is created can be anything. But recommended to be the same as the environment, so reduce ambiguities.
+- NOTE: Activate the virtual environment BEFORE attatching to your jupyter kernel
+- `VScode`: Install the `"Jupyter" extension` before getting started. If not, it will not detect any kernels in your system.
+
+### (Uninstalling virtual environment from jupyter)
+> $`jupyter kernelspec uninstall envname`
+
+### 3. (INSTALL new packages into virtual environment without YAML files)
+> $`conda install {new_package}`
+> $`conda install {new_package}={version}`
+> $`conda install -name {name_of_virtual_env} {name_of_new_package}`
+> OR
+> $`conda install -c conda-forge {name_of_new_package}`
+	- conda-forge (-c means --channel) , using **conda-forge** channel when installing the package. It is bad practice to mix channels. and **conda-forge** currently has the most well maintained and broad range of available libraries.
+
+### (UNINSTALL packages from environment)
+> `conda uninstall {package_name} --name {name_of_virtual_env}`
+
+### (Cloning an existing virtual environment to a new virtual environment)
+> $`conda create -n {name_of_virtual_env} --clone {cloned_virtual_env}`
+
+### (List ALL VIRTUAL ENVIRONMENT in kernel)
+> $`conda env list`
+
+### (Remove/ delete virtual environment from kernel)
+> $`conda remove --name {virtual_env_name} --all`
+> - If you create virtual enviroment into default shared location using `-n`
+> $`conda env remove -n {virtual_env_name}`
+> - If you create virtual enviroment into default shared location using `-n`
+> 
+> OR
+> 
+> $`conda remove --prefix {/path_to_virtual_env_name} --all`
+> - If you create virtual environment locally as a subdirectory using `--prefix`
+> 
+>  OR
+>  
+
+### 4. (List ALL installed PACKAGES IN THE VIRTUAL ENVIRONMENT)
+> $`conda list --prefix {/path_of_virtual_env}` 
+> 
+> OR
+> 
+> $`conda list --name {name_of_virtual_env}` 
+> 
+> OR
+> 
+> $`conda list`
+
+### Storing your virtual environment in a file
+Formats:
+- `environments.yml`
+- `requirements.txt`
+
+### FILE: YAML
+#### Creating: `environments.yml`
+> $`conda env create -f environment.yml`
+- **Good practices**
+	`Save all info (package dependencies installed) necessary to recreate the environment in a file by calling`:
+
+#### Exporting: `environments.yml`
+Creating/ exporting dependencies from conda TO a YAML file 
+- Use: Checks conda and creates `environments.yml`
+> $`conda env export > environment.yml`
+
+#### Importing: `environments.yml`
+Importing dependencies from a YAML file with conda
+- ==Note: (`environment.yml` must already exist)==
+
+**environment.yml $\rightarrow$ conda (if virtual environment is not created)**
+- Virtual environment is in local directory
+> $`conda env create --prefix ./my_env -f environment.yml`
+
+- Virtual environment is in shared location
+	- Use: Checks `environment.yml` and creates conda.
+> $ `conda env create -f environment.yml`
+
+**environment.yml $\rightarrow$ conda (if virtual environment is already been created + activated)**
+Installing dependencies listed in a YAML file with conda (if new packages are installed or uninstalled from conda) 
+- Use: Checks `environments.yml` and downloads listed dependencies 
+- Virtual environment is in local directory
+>$ `conda env update --file environment.yml --prune`
+- If conda virtual environment has already been activated, `--prefix` can be omitted.
+OR
+> $`conda env update -p {path_to_env_dir} -f environment.yml`
+- `If CondaValueError: Invalid environment name: 'xxx' Characters not allowed: {'/', ' ', '#', ':'} If you are specifying a path to an environment, the `-p` flag should be used instead.` is produced
+- Flags:
+	- `--prune`: uninstalls dependencies which were removed from `environment.yml`.
+
+### FILE: `requirements.txt`
+### Exporting: `requirements.txt`
+- Creating a requirements.txt file with conda
+>$ `conda list > requirements.txt`
+
+- Notice it is more migration friendly, as it stores all the dependencies properly in a yml file (yml file is commonly used for configuration files and in applicaitons where data is being stored or transmitted)
+
+### Importing: `requirements.txt`
+> $`conda install --file requirements.txt`
+
+
+## 6. (List all created virtual environments with conda)
+> $`conda env list`
+
+## Other commands:
+[Here](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#:~:text=Key%20Points-,A%20Conda%20environment%20is%20a%20directory%20that%20contains%20a%20specific,activate%20(%20conda%20deactivate%20)%20commands.)
+search to see what versions are available in your virtual environment: `conda search $PACKAGE_NAME`
+Renaming your current environment, or any of your existing environments: `conda rename -n old_env_name new_env_name`
+
+
+## (Install pip) (if conda does not have wanted packages): 
+> $`conda install pip`
+
+# Generic commands
+
+Kernel
+- Kernel commands are the same for all virtual environments we choose to use above.
+- Install ipykernel: $`pip install ipykernel`
+
+
+## List all installed kernels in jupyter notebook
+$ `jupyter kernelspec list`
+
+## Creating a new kernel 
+- (same step for all virtual environment above)
+`(your-venv)$ ipython kernel install --name "local-venv" --user`
+- or
+$ `python -m ipykernel install --name={kernel_name}`
+
+## Removing kernel
+$`jupyter kernelspec remove {kernel_name}`
+
+## Activate virtual environment
+$ `source name-of-venv/bin/activate`
+
+## Changing the name of the kernel
+1. Use $`jupyter kernelspec list` to see the folder the kernel is located in.
+2. cd to the folder, and open file named `kernel.json`
+3. Edit the option/ key: `"display_name"`
+
+Virtual environments
+- COMMADS are specific to the virtual environments we use. Hence view each.
+
+
+# Introduction:
 ### What is a virtual environment vs Jupyter kernel?
 (Not verified)
 (https://medium.com/@SMNWYP0710/conda-env-kernel-and-jupyter-notebook-in-gcp-52d51d09f1f9)
@@ -109,220 +326,3 @@ Source: [https://medium.com/@krishnaregmi/pipenv-vs-virtualenv-vs-conda-environm
 ## Check path to where a package is stored
 > `pip show {package_name}`
 
-----------------------
-# Conda
-- Conda is a package, dependency, and virtual environment (environment) MANAGER. For languages: Python, R, Ruby, Lua, Scala, Java, JavaScript, C/ C++, Fotran, and more...
-3) conda (USED because nobody wants to install xxx this will work as long as you have python, because anaconda (conda) is a distribution of python, and it produces a yml file, which is more consistent)
-
-Resources:
-- https://www.earthdatascience.org/courses/intro-to-earth-data-science/python-code-fundamentals/use-python-packages/use-conda-environments-and-install-packages/
-- http://echrislynch.com/2019/02/01/adding-an-environment-to-jupyter-notebooks/
-- [conda for data scientist (one of the best)](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#creating-a-new-environment-as-a-sub-directory-within-a-project-directory)
-
-----------------------
-
-> Contents are numbered suggesting priority and most likely used, and separating the superfluous.
-
-## Prereq
-- Install ipykernel: `conda install -c anaconda ipykernel`
-- `pip install ipykernel`
-- When you use `pip install`, it installs packages directly into the Python environment that is currently active, regardless of whether that environment was created using Conda or not. Pip installs packages into the Python environment based on the Python interpreter's configuration and the active environment.
-
-Conda, on the other hand, manages its own separate environments and package installations. Conda creates isolated environments with their own independent package installations, allowing you to manage and control dependencies for different projects or use cases.
-
-Running `pip install` within a Conda environment will only affect that specific environment, not the overall Conda installation or other Conda environments.
-
-## 1. (Create a new virtual environment)
-> `conda create --prefix ./env {python}={version_no} {package_name}={version_no}` 
-> - You will create virtual environment locally as a subdirectory using `--prefix`
-> - Read why it is good to specify a location for conda environment: [read](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#how-do-i-specify-a-location-for-a-conda-environment)
-> BUT, not specifying location, and using `-n` (below) also has its benefit: [read](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#creating-a-new-environment-as-a-sub-directory-within-a-project-directory) (can no longer find your environment with the `--name` flag; you’ll generally need to pass the `--prefix` flag along with the environment’s full path to find the environment.) 
-> - `Why is it important to specify python version?`
-> 	- So that the installed packages by calling `conda install {package_name}` will all store in the correct `/bin/python{version}`
-> 
-> OR 
-> 
-> $`conda create -n {name_of_new_virtual_env} python={version_no} {package_name}={version_no} ...` 
-> - You will create virtual enviroment into default shared location using `-n`
-> - E.g., creating new virtual environment with multiple packages
-> 	-`$ conda create --name basic-scipy-env ipython=7.13 matplotlib=3.1 numpy=1.18 scipy=1.4`
-> 
-> OR
-> $`conda create -n {name_of_new_virtual_env}`
-
-- Common names for virtual environments: If you are storing your environment inside the project folder some common names are `env`, `venv`, `.env`, `.venv`, but besides that, I don't think there are any common conventions.
-
-## 2. (Activate virtual environment)
-> $`conda activate {location_of_virtual_environment}`  
-> - If you create virtual environment locally as a subdirectory using `--prefix`
->
-> OR 
->
-> $`conda activate {name_of_new_virtual_env}`
-> - If you create virtual enviroment into default shared location using `-n`
-
-- After "activating" your chosen virtual environment our terminal will connect to that virtual environment, hence allowing us to see kernel name at the terminal prompt. E.g., (`(virtual_env_name) C:\Users\Jack>`)
-- Deactivate virtual environment
-	- $`conda deactivate`
-
-## 2b. (Create and install new kernel into system)
-- Check ipython kernels installed: `jupyter kernelspec list` (so that you don't create too many ipykernels) 
-
--  IF You will create virtual environment locally as a subdirectory using `--prefix`, and you want to create a kernel within your virtual environment:
-> $ `conda install jupyter`
-> $ `conda install ipykernel`
-> $`python{version} -m ipykernel install --user --name=<kernel-name>`
-- Else
-> $`python{version} -m ipykernel install --user --name=<kernel-name>`
-> - If you create virtual enviroment into default shared location using `-n`
-> - `python{version}` is important, because you specify where your future `conda install` command will call your packages from?
->  
-> OR
-> 
-> $`ipython kernel install --user --name={name_of_new_kernel}`
-> - If you create virtual enviroment into default shared location using `-n`
-- `name_of_kernel` that is created can be anything. But recommended to be the same as the environment, so reduce ambiguities.
-- NOTE: Activate the virtual environment BEFORE attatching to your jupyter kernel
-- `VScode`: Install the `"Jupyter" extension` before getting started. If not, it will not detect any kernels in your system.
-
-
-## 3. (INSTALL new packages into virtual environment without YAML files)
-> $`conda install {new_package}`
-> $`conda install {new_package}={version}`
-> $`conda install -name {name_of_virtual_env} {name_of_new_package}`
-> OR
-> $`conda install -c conda-forge {name_of_new_package}`
-	- conda-forge (-c means --channel) , using **conda-forge** channel when installing the package. It is bad practice to mix channels. and **conda-forge** currently has the most well maintained and broad range of available libraries.
-
-## (UNINSTALL packages from environment)
-> `conda uninstall {package_name} --name {name_of_virtual_env}`
-
-## (Cloning an existing virtual environment to a new virtual environment)
-> $`conda create -n {name_of_virtual_env} --clone {cloned_virtual_env}`
-
-## (List ALL VIRTUAL ENVIRONMENT in kernel)
-> $`conda env list`
-
-## (Remove/ delete virtual environment from kernel)
-> $`conda remove --name {virtual_env_name} --all`
-> - If you create virtual enviroment into default shared location using `-n`
-> $`conda env remove -n {virtual_env_name}`
-> - If you create virtual enviroment into default shared location using `-n`
-> 
-> OR
-> 
-> $`conda remove --prefix {/path_to_virtual_env_name} --all`
-> - If you create virtual environment locally as a subdirectory using `--prefix`
-> 
->  OR
->  
-
-## 4. (List ALL installed PACKAGES IN THE VIRTUAL ENVIRONMENT)
-> $`conda list --prefix {/path_of_virtual_env}` 
-> 
-> OR
-> 
-> $`conda list --name {name_of_virtual_env}` 
-> 
-> OR
-> 
-> $`conda list`
-
-## (CREATING YAML) - before your virtual environment is conda activated
-## (Creating and tracking your virtual environment packages WITH YAML files)
-> $`conda env create -f environment.yml`
-
-- **Good practices**
-	`Save all info (package dependencies installed) necessary to recreate the environment in a file by calling`:
-
-
-## 5. (Exporting dependencies/ list of packages in the virtual environment into a `environment.yml` or `requirements.txt`) - AFTER virtual environment is conda activated
------
-## `environments.yml`
-### Exporting: `environments.yml`
-Creating/ exporting dependencies from conda TO a YAML file 
-- Use: Checks conda and creates `environments.yml`
-> $`conda env export > environment.yml`
-
-
-### Importing: `environments.yml`
-Importing dependencies from a YAML file with conda
-- ==Note: (`environment.yml` must already exist)==
-
-**environment.yml $\rightarrow$ conda (if virtual environment is not created)**
-- Virtual environment is in local directory
-> $`conda env create --prefix ./my_env -f environment.yml`
-
-- Virtual environment is in shared location
-	- Use: Checks `environment.yml` and creates conda.
-> $ `conda env create -f environment.yml`
-
-**environment.yml $\rightarrow$ conda (if virtual environment is already been created + activated)**
-Installing dependencies listed in a YAML file with conda (if new packages are installed or uninstalled from conda) 
-- Use: Checks `environments.yml` and downloads listed dependencies 
-- Virtual environment is in local directory
->$ `conda env update --file environment.yml --prune`
-- If conda virtual environment has already been activated, `--prefix` can be omitted.
-OR
-> $`conda env update -p {path_to_env_dir} -f environment.yml`
-- `If CondaValueError: Invalid environment name: 'xxx' Characters not allowed: {'/', ' ', '#', ':'} If you are specifying a path to an environment, the `-p` flag should be used instead.` is produced
-- Flags:
-	- `--prune`: uninstalls dependencies which were removed from `environment.yml`.
-
-## `requirements.txt`
-### Exporting: `requirements.txt`
-- Creating a requirements.txt file with conda
->$ `conda list > requirements.txt`
-
-- Notice it is more migration friendly, as it stores all the dependencies properly in a yml file (yml file is commonly used for configuration files and in applicaitons where data is being stored or transmitted)
-
-### Importing: `requirements.txt`
-> $`conda install --file requirements.txt`
-
------
-
-## 6. (List all created virtual environments with conda)
-> $`conda env list`
-
-## Other commands:
-[Here](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#:~:text=Key%20Points-,A%20Conda%20environment%20is%20a%20directory%20that%20contains%20a%20specific,activate%20(%20conda%20deactivate%20)%20commands.)
-search to see what versions are available in your virtual environment: `conda search $PACKAGE_NAME`
-Renaming your current environment, or any of your existing environments: `conda rename -n old_env_name new_env_name`
-
-## (Uninstalling virtual environment from jupyter)
-> $`jupyter kernelspec uninstall envname`
-
-## (Install pip) (if conda does not have wanted packages): 
-> $`conda install pip`
-
-----------------------
-
-# Generic commands
-
-Kernel
-- Kernel commands are the same for all virtual environments we choose to use above.
-- Install ipykernel: $`pip install ipykernel`
-
-
-## List all installed kernels in jupyter notebook
-$ `jupyter kernelspec list`
-
-## Creating a new kernel 
-- (same step for all virtual environment above)
-`(your-venv)$ ipython kernel install --name "local-venv" --user`
-- or
-$ `python -m ipykernel install --name={kernel_name}`
-
-## Removing kernel
-$`jupyter kernelspec remove {kernel_name}`
-
-## Activate virtual environment
-$ `source name-of-venv/bin/activate`
-
-## Changing the name of the kernel
-1. Use $`jupyter kernelspec list` to see the folder the kernel is located in.
-2. cd to the folder, and open file named `kernel.json`
-3. Edit the option/ key: `"display_name"`
-
-Virtual environments
-- COMMADS are specific to the virtual environments we use. Hence view each.
