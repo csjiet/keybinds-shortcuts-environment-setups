@@ -63,27 +63,40 @@ git push, SSH setup
 		- a command used to create an independent copy of an existing Git repository, including all its commit history, branches, and files. BUT this copy is independent of the original repository and exists as a separate entity. You can think of it as creating your own personal copy of someone else's repository, **so you can only contribute to your own forked repository without affecting the original repository**. 
 			- However, you can create branches, and eventually contribute to the original repo by making pull requests, and collaborate with others using your forked repository.
 
-"Git ignore"
+## Git ignore
 - To ignore files/ directories when committing to local repo/ pushing to remote repo.
-- Git ignore a directory (recursively) 
-	1) Create a `touch .gitignore` file
-	2) Add the line `/{directory_name}/` in the file - directory you want to ignore during commits, and remote push. 
-		- ***(a forward slash (/) at the beginning of the directory name to indicate that it should be ignored recursively.)***
-	- Example:
-		- `dir1/`
-		- `.hidden_dir/`
-	1) `git add .gitignore`
-	2) `git commit -m "Add .gitignore"`
-- Git ignore a file 
-	1) Create a `touch .gitignore` file
-	2) Add the line `file_name` or `path/to/{file_name}` in the file (can be relative path) - directory you want to ignore during commits, and remote push.
-	- Example:
-		- `filename`
-		- `*.extension` (ignores all files that has that `extension`)
-	1) `git add .gitignore`
-	2) `git commit -m "Add .gitignore"`
-- Removing tracked files
-	- If you want to remove a file that is already being tracked by Git, you can add the `-cached` option to remove the file from the repository but keep it in your working directory. This is useful when you want to stop tracking the file but retain your local copy:
+Git ignore a directory (recursively) 
+1) Create a `touch .gitignore` file
+2) Add the line `/{directory_name}/` in the file - directory you want to ignore during commits, and remote push. 
+	- ***(a forward slash (/) at the beginning of the directory name to indicate that it should be ignored recursively.)***
+- Example:
+	- `dir1/`
+	- `.hidden_dir/`
+1) `git add .gitignore`
+2) `git commit -m "Add .gitignore"`
+Git ignore a file 
+1) Create a `touch .gitignore` file
+2) Add the line `file_name` or `path/to/{file_name}` in the file (can be relative path) - directory you want to ignore during commits, and remote push.
+- Example:
+	- `filename`
+	- `*.extension` (ignores all files that has that `extension`)
+1) `git add .gitignore`
+2) `git commit -m "Add .gitignore"`
+
+Git ignore "everything, except xxx"
+> E.g., If there are $n$ directories with all garbage, and you want to ignore everything, and only push all files with `.pdf` and `.tex` across all directories. 
+```
+* 
+* !**/*.pdf 
+* !**/*.tex
+```
+- `*` ignores all files and directories recursively.
+- `!**/*.pdf` and `!**/*.tex` negate the exclusion for .pdf and .tex files, specifically including them even within ignored directories.
+
+
+Removing tracked files
+- If you want to remove a file that is already being tracked by Git, you can add the `--cached` option to remove the file from the repository but keep it in your working directory. This is useful when you want to stop tracking the file but retain your local copy:
+> `--cached` flag: Crucial for specifying that you only want to remove the file from the index, not from your local filesystem.
 ``` bash
 # Remove tracked files
 git rm --cached path/to/your/file
@@ -194,7 +207,7 @@ Show and delete git branch
 - `git branch -a`: Show local and remote branches 
 - `git branch -r`: Show only remote branches
 - `git branch`: Show only local branches 
-- `git branch -d {name_of_branch}`: Deletes branch in local repo
+- `git branch -d {name_of_branch}`: Deletes branch/ remove branch in local repo
 - `git push origin --delete feature/login`: Deletes branch in remote repo.
 
 Switch between git branches
@@ -244,7 +257,22 @@ git push origin my-feature-branch
 - 1. Ensure that you are in the local branch you want to push
 - 2. Push the branch to GitHub
 
-1.
+## Git remote
+- Link a remote repo to your local repo.
+```
+$ git remote add {remote_identifier} {git_remote_link}
+```
+
+- View/ check all remote repo you have linked to the local repo
+``` 
+$ git remote -v
+```
+
+- Delete/ remove remote repo 
+```
+$ git remote remove <remote_name>
+```
+
 
 # Git pull
 
@@ -260,6 +288,31 @@ If this is done in a terminal, a GNU nano text editor will be brought up as the 
 - To navigate and edit the text in `nano`, use the arrow keys and standard text editing commands.
 	- We can use vim instead:
 	- `git config --global core.editor vim`
+
+# Git stash
+Use: Use to save work that is in progress, that you do not want to commit. Set aside your progress.
+Common scenarios where git stash is nice to have/ helpful:
+1. **Performing a Git Pull**:
+    - If you have local changes that conflict with the changes you're trying to pull, Git won't allow the pull operation to proceed.
+    - You can handle this by either committing your changes first and then pulling, OR you can use `git add --all` and `git stash` everything in the staging area to temporarily set aside your changes, perform the pull, and then reapply the changes with `git stash pop`.
+```
+git add --all
+git stash
+git pull origin branch_name
+git stash pop
+```
+2. **Switching Branches with Git Checkout**:
+    - When you want to switch branches using `git checkout {another_branch}`, but have uncommitted changes that could be overwritten or that conflict with the target branch, Git may block the checkout.
+    - To resolve this, you can either commit your changes on the current branch first before switching, OR use `git stash` to stash your changes, switch branches with `git checkout`, and then return to your original branch later to reapply the stashed changes."
+- 
+# Git fetch
+> A command used to **download data from a remote repository without merging it into your local working directory.** It essentially brings you up to date with the latest changes on the remote server.
+
+- When a branch in your remote repository does not exist in your local repository. (e.g., You have 3 branches in remote repo, but your local repo only has 1 --- `main`)
+```
+# Fetch specific_branch_name branch from remote origin repo 
+$ git fetch origin {specific_branch_name} 
+```
 
 # Git push
 > If you want to submit a "pull request" using a forked repo, we typically do not need to "push" to the remote upstream.

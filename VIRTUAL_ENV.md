@@ -143,6 +143,10 @@ Creating/ exporting dependencies from conda TO a YAML file
 - Use: Checks conda and creates `environments.yml`
 > $`conda env export > environment.yml`
 
+- Export environment yaml using prefix path
+> $`conda env export --prefix /path/to/your/conda/environment > environment.yml
+`
+
 #### Importing: `environments.yml`
 Importing dependencies from a YAML file with conda
 - ==Note: (`environment.yml` must already exist)==

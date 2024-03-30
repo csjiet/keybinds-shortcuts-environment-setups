@@ -111,15 +111,16 @@
 # Vim
 **General**
 
-**- (temporarily put vim in the background to use the terminal) - ctrl+z ; fg**
+- (temporarily put vim in the background to use the terminal) - `ctrl+z ; fg`
 
-**- In terminal, we can use ‘ps’ to check for processes in the background**
+- (Check path to the file opened in the current buffer) - `ctrl +g` 
+	- "g" --- "get" file path
 
-**- (Delete next word) - dw**
+- (Delete next word) - `dw`
 
-**- (Delete previous word) - db**
+- (Delete previous word) - `db`
 
-**- (Delete from cursor to end of line) - shift + d**
+- (Delete from cursor to end of line) - `shift + d`
   
 
 **NAVIGATION**
@@ -147,7 +148,13 @@
 
 **OPENING AND QUITTING FILES FROM WITHIN VIM**
 
-(Open file ANOTHER from within vim) - :e {filename}
+(Open file ANOTHER from within vim) - `:e {filename}`
+> **Vim Buffers**: Buffers are containers that hold the content of files or text that you are editing. An in-memory representation of a file or text that you are currently editing in Vim.
+> - Resources: [YT, Vim Buffers](https://www.youtube.com/watch?v=Dt1d2_IcR1Q)
+- (List all Vim Buffers) - `:ls` or `:buffers`
+- (Navigating Vim Buffers, the next buffer) - `:bn`
+- (Navigating Vim Buffers, the previous buffer) - `:bp`
+- (Navigate to Specific Vim Buffer) - `:b{n}` (n - buffer number)
 
 (Switch between files): ctrl + ^
 
@@ -173,8 +180,8 @@
 
 RUN TERMINAL COMMAND FROM WITHIN VIM
 
-(Run terminal command from within vim) - :!<command>
-
+(Run terminal command from within vim) - : `!<command>`
+(Open terminal within vim): `:term`
   
 
 **OPENING AND SPLITTING MULTIPLE FILES FROM OUTSIDE VIM**
@@ -184,12 +191,12 @@ RUN TERMINAL COMMAND FROM WITHIN VIM
 (Open and split file vertically) - vim -O {file1} {file2}
 
 
+### Panes in vim
 **OPENING AND SPLITTING MULTIPLE FILES FROM WITHIN VIM**
+
 Vim split prefix: `ctrl+w`
-(Split file horizontall) -`ctrl+w s` or  `:sp <another_filename>` 
-
-(Split file vertically)  -  `ctrl+w v` or  `:vs <another_filename>`
-
+- (Split file horizontall) -`ctrl+w s` or  `:sp <old/new_filename>` 
+- (Split file vertically)  -  `ctrl+w v` or  `:vs <old/new_filename>`
 - Operation after split(s)
 	- (Jump to split window using direction) - `ctrl+w {h/j/k/l}`
 	- (Jump to next split window) - `ctrl + w w`
@@ -201,6 +208,12 @@ Vim split prefix: `ctrl+w`
 	- (Maximize current WIDTH of buffer/ window): `ctrl+w |`
 	- (Maximize current HEIGHT of buffer/ window): `ctrl+w -`
 	- (Reset all buffer/ window size so that they are ALL EQUAL dimensions): `ctrl+w =`
+	- (Exit pane): `ctrl+w q`
+- Movement after split(s)
+	- (Move to most left) - `ctrl+w H`
+	- (Move to most right) - `ctrl+w L`
+	- (Move to most top) - `ctrl+w K`
+	- (Move to most left) - `ctrl+w J`
   
 
 **(insert at the END of the line) -** A
@@ -212,6 +225,16 @@ Vim split prefix: `ctrl+w`
 **(vertical split) - :**vs {filename}
 
 (Insert at the start of the highlighted columns across all highlighted lines): `ctrl+v`, `(highlight column and lines)` , `shift+i`, `(type away)`
+
+### Tabs in vim
+
+`:tabnew` - opens new tab
+
+`gt`/ `:tabnext` - switches to next tab
+
+`gT`/ `:tabprev` - switches to previous tab
+
+`:q`/ `:tabclose` - closes current tab
 
 
 ### (Horizontal movement) 
@@ -246,6 +269,8 @@ t{char} - find the closest matching car to the right, but stop BEFORE that chara
 
 - <w/W> - **w**: move word after “empty char”/,/./\//? while **W**: move to word after empty char only
 
+HIGHLIGHTING IN VISUAL MODE
+
 **viw** - highlight cursored word
 
 **viW** - highlight cursored word + 1 space to the right
@@ -279,10 +304,8 @@ t{char} - find the closest matching car to the right, but stop BEFORE that chara
 
 
 **formatting**
+(auto-indenting lines) =  "`=`"
 
-**(format to proper indent) = [highlight] + =**
-
-  
 
 **selecting**
 
@@ -291,7 +314,6 @@ t{char} - find the closest matching car to the right, but stop BEFORE that chara
   
 
 **line numbers**
-
 **- relative line numbers: cursor will be at position 0; other lines will be the relative position from the cursor**
 
 **- absolute line numbers: cursor will be at the real line number; other lines will be also absolute/ real line numbers**
@@ -310,6 +332,15 @@ t{char} - find the closest matching car to the right, but stop BEFORE that chara
 
 **(Turn off hybrid <relative + absolute> line number: set nonu nornu**
 
+### Edit words in vim
+
+Search and replace:
+Source: [YT](https://www.youtube.com/watch?v=9Sodnanx_yI)
+1) `:%s/word2replace/replace/{g}{i/I}{c}` --- replace for the whole file 
+- `g`: all occurence
+- `i`: case insensitive (doesn't care about capitalization); `I`: case sensitive.
+- `c`: confirmation (ask before replace)
+2) `:{start-line},{stop}s/word2replace/replace/{g}{i/I}{c}` --- replace occurances in specific lines
 
 ## VIMRC
 - **:map**: See all keybinds in vimrc 
@@ -410,19 +441,57 @@ t{char} - find the closest matching car to the right, but stop BEFORE that chara
 
   
 
-**Markdown**
+## Markdown
 
-**(Text formatting)**
+### Table of contents
 
-  
+- Sources: [Table of contents, how to](https://gist.github.com/jonschlinkert/ac5d8122bfaaa394f896#sub-heading)
+```
+<!-- link -->
+- [Identifier 1](#identifier-1)
+
+<!-- content -->
+# Identifier 1
+```
+
+```
+- [Heading](#heading)
+  * [Sub-heading](#sub-heading)
+    + [Sub-sub-heading](#sub-sub-heading)
+- [Heading](#heading-1)
+  * [Sub-heading](#sub-heading-1)
+    + [Sub-sub-heading](#sub-sub-heading-1)
+
+
+## Heading
+This is an h1 heading
+
+### Sub-heading
+This is an h2 heading
+
+#### Sub-sub-heading
+This is an h3 heading
+
+
+## Heading
+This is an h1 heading
+
+### Sub-heading
+This is an h2 heading
+
+#### Sub-sub-heading
+This is an h3 heading
+```
+
+### Text formatting
 
 **(header)**
 
-# This is an H1
+`# This is an H1`
 
-## This is an H2
+`## This is an H2`
 
-##### This is an H5
+`##### This is an H5`
 
 **Color text**
 ```html
@@ -431,17 +500,9 @@ Text_content
 </style>
 ```
 
-**(bold text)** 
+Text bolding: `**{text}**`
 
-**text**
-
-  __text__
-
-**(italic text)** 
-
-*text*
-
-  _text_
+Text italic: `__text__`, `*text*`, `_text_`
 
 **(highlight text)** 
 
@@ -450,7 +511,6 @@ Text_content
 **(strikethrough text)** 
 
        ~~The world is flat.~~
-
   
 
 **(Hyperlink with real link)**
@@ -501,14 +561,24 @@ OR
 \-   Blue
 
   
-
-**(links)** \[Text\](http://exampleLinkHere.net/)
+## Image
+**(links)** 
+```
+\[Text\](http://exampleLinkHere.net/)
+```
 
 **(image)**  
+```
 !\[text\](attachment:{<file_name}) 
+```
 OR 
+```
 !\[text\]({relative_path})
-
+```
+OR
+```
+<img src="drawing.jpg" alt="drawing" width="200"/>
+```
   
 
 Nice formats
@@ -680,7 +750,17 @@ E.g., https://tex.stackexchange.com/questions/170281/how-put-minimize-in-place-o
 **Examples: https://latex-programming.fandom.com/wiki/Align_(LaTeX_environment)**
 
 # Jupyter notebooks (vanilla) commands
-**(Since we are using jupyter-vim-bindings for jupyter notebook, and jupyterlab-vim for jupyter lab, we have an additional "VIM mode", which we will enter, allowing normal insert, normal, visual mode in vim. To use vanilla jupyter notebook commands, we must exit VIM MODE: SHIFT + ESC)**
+
+**Connect jupyter notebook to a REMOTE server/ ssh** --- [Stackoverflow, source!](https://stackoverflow.com/questions/69244218/how-to-run-a-jupyter-notebook-through-a-remote-server-on-local-machine)
+```
+1. In your local terminal: ssh to your remote machine; Run jupyter lab server in your remote machine
+2. jupyter lab --no-browser --port=8080
+3. Copy URL generated by the jupyter server. 
+4. In your local terminal: type (ssh -L {port}:localhost:{port} {user}@{ip})
+5. Paste the URL in your browser.
+```
+
+> **(Since we are using jupyter-vim-bindings for jupyter notebook, and jupyterlab-vim for jupyter lab, we have an additional "VIM mode", which we will enter, allowing normal insert, normal, visual mode in vim. To use vanilla jupyter notebook commands, we must exit VIM MODE: SHIFT + ESC)**
 
 **Insert cell above**: 
 	A
@@ -778,9 +858,63 @@ https://jupyterlab.readthedocs.io/en/stable/user/extensions.html
 > 	1. `command`: can be found here: [link](https://code.visualstudio.com/docs/getstarted/keybindings#_basic-editing)
 > 	2. `key, command` : can also be queried using ChatGPT
 
-(close side panel): `cmd + b`
+Navigation
+- Explorer (file directory)
+	- (Hide explorer pane/ directory view pane): `cmd + b`
+	- (Move cursor to Explorer): `cmd + shift + e`
+- Pane
+	- {==View Vim bindings above==}
 
 
+# SCP (Secure CoPy)
+> Command line tool used in Unix and Linux systems. It uses SSH (Secure Shell) to securely transfer files between a local host and a remote host or between two remote hosts. 
+### Local $\rightarrow$ Remote
+> **Send to:**
+> 1. Login remote machine from your local computer
+> 2. Open a separate terminal. Enter command:
+
+- Send File
+```
+scp -P {port_number} {file_name} usr@{i.p.address}:~/{path}
+```
+- Send Directory
+```
+scp -r {./local_path_to_dir} usr@{i.p.address}:~/{path}
+```
+
+- Running the `scp` command to copy a directory to a remote location will overwrite any existing files in the destination if they have the same name and are in the same location.
+
+> **Receive from:**
+> 1. 
+
+- Receive from Directory
+```
+scp -r usr@{i.p.address}:~/{path} {./local_path_to_dir}
+```
+
+### Remote $\rightarrow$ Local 
+
+
+#### Flags in scp command
+- `scp -r`: Recursively copy entire directory, including any subdirectories.
+- `scp -P {port_number}`: Specifies the port to connect to on the remote host
+
+----
+
+# rsync (remote synchronization/ remote sync)
+> How is rsync different from scp?
+> - rsync: Used to maintain a mirror copy or backup of a source directory to a destination directory. It does so differently compared to scp by **only minimally transferring the differences or portion of changes (addition or deletions) made to the files** rather than the entire file every time.
+
+Benefits:
+- Does not require separate commits, when splitting workload across computers. (e.g., pushing changes from machine 1, pulling from pushed changes to machine 2, and then pushing changes from machine 2 as 2nd commit)
+- Fault tolerant (A system continues to operate properly despite a failure). 
+	- Fault: Defect, imperfection.
+	- Tolerant: Ability to endure specific conditions.
+
+1) 
+
+
+----
 # Obsidian
 
 (Resize images) \!\[\{image_name\} \| \{size_int\}\]
@@ -790,6 +924,40 @@ https://jupyterlab.readthedocs.io/en/stable/user/extensions.html
 
 # LaTEX 
 Setup: [Youtube](https://www.youtube.com/watch?v=CmagZthwhaY)
+Downloads: [miktex](https://miktex.org/download)
 
+Boilerplate
+```
+\documentclass{article} %
+\usepackage[utf8]{inputenc}
+
+\title{youtube get started}
+\author{Federi Tartarini}
+\date{April 2020}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+\maketitle
+
+\bibliography{references}
+\end{document}
+```
+
+### Packages
+```
+\usepackage{name_of_package}
+```
+- `natbib`: 
+- `graphicx`: 
+- `multicol`: For multiple columns in a page
+```
+\begin{document}
+\begin{multicol}[num_of_col]
+
+\end{multicol}
+\end{document}
+```
 
 
