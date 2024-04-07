@@ -30,7 +30,7 @@ Running `pip install` within a Conda environment will only affect that specific 
 
 ### Steps to setup the conda virtual environment
 ### 1. (Create a new virtual environment)
-> `conda create --prefix ./env {python}={version_no} {package_name}={version_no}` 
+> `conda create --prefix ./env python={version_no} {package_name}={version_no}` 
 > - You will create virtual environment locally as a subdirectory using `--prefix`
 > - Read why it is good to specify a location for conda environment: [read](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#how-do-i-specify-a-location-for-a-conda-environment)
 > BUT, not specifying location, and using `-n` (below) also has its benefit: [read](https://edcarp.github.io/introduction-to-conda-for-data-scientists/02-working-with-environments/index.html#creating-a-new-environment-as-a-sub-directory-within-a-project-directory) (can no longer find your environment with the `--name` flag; you’ll generally need to pass the `--prefix` flag along with the environment’s full path to find the environment.) 
@@ -137,11 +137,10 @@ Formats:
 > $`conda env create -f environment.yml`
 - **Good practices**
 	`Save all info (package dependencies installed) necessary to recreate the environment in a file by calling`:
-
 #### Exporting: `environments.yml`
-Creating/ exporting dependencies from conda TO a YAML file 
-- Use: Checks conda and creates `environments.yml`
 > $`conda env export > environment.yml`
+- Creating/ exporting dependencies from conda TO a YAML file 
+- Use: Checks conda and creates `environments.yml`
 
 - Export environment yaml using prefix path
 > $`conda env export --prefix /path/to/your/conda/environment > environment.yml
@@ -172,6 +171,7 @@ OR
 	- `--prune`: uninstalls dependencies which were removed from `environment.yml`.
 
 ### FILE: `requirements.txt`
+
 ### Exporting: `requirements.txt`
 - Creating a requirements.txt file with conda
 >$ `conda list > requirements.txt`
@@ -179,7 +179,9 @@ OR
 - Notice it is more migration friendly, as it stores all the dependencies properly in a yml file (yml file is commonly used for configuration files and in applicaitons where data is being stored or transmitted)
 
 ### Importing: `requirements.txt`
+requirements.txt $\rightarrow$ conda
 > $`conda install --file requirements.txt`
+> $`pip install -r requirements.txt`
 
 
 ## 6. (List all created virtual environments with conda)
