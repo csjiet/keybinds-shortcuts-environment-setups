@@ -75,6 +75,10 @@
 
 **(Switch between the most recent pane) ctrl+ b ;**
 
+(Swap windows with index n and index m) 
+1) tmux-command prompt: `ctrl + b + :`, 
+2) Specify swap-window command and its source and target windows: `swap-window -s {window-index-n} -t {window-index-m}`
+
 
   
 **(Rename)**
@@ -172,7 +176,8 @@
 - (List all Vim Buffers) - `:ls` or `:buffers`
 - (Navigating Vim Buffers, the next buffer) - `:bn`
 - (Navigating Vim Buffers, the previous buffer) - `:bp`
-- (Navigate to Specific Vim Buffer) - `:b{n}` (n - buffer number)
+- (Navigate to Specific Vim Buffer) - `:b {n}` (n - buffer number)
+- (Delete Vim Buffer number) - `:bd {n}`
 
 (Switch between files): ctrl + ^
 
@@ -997,6 +1002,19 @@ Boilerplate
 
 \end{multicol}
 \end{document}
+```
+
+
+## Tensorboard
+
+Remote machine
+```bash
+tensorboard --logdir=/tmp  --port=6006
+```
+
+Local machine
+```bash
+ssh -L 16006:127.0.0.1:6006 olivier@my_server_ip
 ```
 
 
