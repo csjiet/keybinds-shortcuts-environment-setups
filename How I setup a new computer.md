@@ -59,3 +59,7 @@ Download tmux plugin manager, so that we can enable some plugin commands in `.tm
 ## vscode
 - Jupyter notebook extension
 	- install 'Python: install the jupyter extension' to recognize kernel (because installed "python environment" - to run `.py` files cannot run jupyter notebooks that uses "Jupyter kernels")
+
+## iterm
+Install nerd fonts using bash for neovim: `https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e`
+- e.g., `brew tap homebrew/cask-fonts && brew install --cask font-jetbrains-mono-nerd-font`

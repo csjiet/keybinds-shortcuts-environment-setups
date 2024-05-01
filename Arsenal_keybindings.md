@@ -166,6 +166,22 @@
 **(Jump to previous word): b**
 
 **(find next nearest character)**: f {char}
+
+**(Marking a vim buffer with a specific opened file to a capital letter key, and allow quick switching/ jumping to the specific vim buffer)** --- [YT, Use THIS to Level Up Your Vim Navigation Game](https://www.youtube.com/watch?v=R_VxVuR1X6Y)
+
+> **Jumplists**: A historical list of file lines associated with an opened buffer that we have visited.
+- (Check jumplist): `:jumps`
+
+> **Marks**: A **mark** allows you to record your current position so you can return to it later, stored in a jumplist. ([source](https://vim.fandom.com/wiki/Using_marks))
+- (Mark line in a file (can be the same file)): `m` `shift + {alphabet-key}`
+- (Jump to mark): `' + shift + {stored-alphabet-key}`
+- (Clear jumplist): `:clearjumps`
+
+
+
+
+
+
   
 
 **OPENING AND QUITTING FILES FROM WITHIN VIM**
@@ -214,7 +230,7 @@ RUN TERMINAL COMMAND FROM WITHIN VIM
 (Open and split file vertically) - vim -O {file1} {file2}
 
 
-### Panes in vim
+### Windows in vim
 **OPENING AND SPLITTING MULTIPLE FILES FROM WITHIN VIM**
 
 Vim split prefix: `ctrl+w`
@@ -228,8 +244,8 @@ Vim split prefix: `ctrl+w`
 	- (View all opened vim buffers/ windows): `:buffers`
 	- (Increase/ decrease width of buffers): `ctrl+w >/<`
 	- (Increase/ decrease height of buffers): `ctrl+w +/-`
-	- (Maximize current WIDTH of buffer/ window): `ctrl+w |`
-	- (Maximize current HEIGHT of buffer/ window): `ctrl+w -`
+	- (Maximize buffer that was split vertically): `ctrl+w |`
+	- (Maximize buffer that was split horizontally): `ctrl+w _`
 	- (Reset all buffer/ window size so that they are ALL EQUAL dimensions): `ctrl+w =`
 	- (Exit pane): `ctrl+w q`
 - Movement after split(s)
@@ -256,6 +272,8 @@ Vim split prefix: `ctrl+w`
 `gt`/ `:tabnext` - switches to next tab
 
 `gT`/ `:tabprev` - switches to previous tab
+
+`n`+`gt` - switches to nth tab
 
 `:q`/ `:tabclose` - closes current tab
 
@@ -380,6 +398,14 @@ Source: [YT](https://www.youtube.com/watch?v=9Sodnanx_yI)
 > - The image below shows the output generated after copying and pasting it into `.config/nvim/init.lua`, and restarting nvim by typing `nvim`. (Basically a list of plugins that are installed, as recommended by kickstart.nvim)
 ![[neovim_kickstart_initlua.png|1000]]
 
+### vim diff tool (neovim)
+Source: [neovim doc](https://neovim.io/doc/user/diff.html#:~:text=Vim%20will%20then%20append%20the,diff%22%20command%20will%20be%20used.)
+> Checks the differences between >1 files.
+
+```
+nvim -d file1 file2 [file3 [file4]]
+```
+
 ## Help (find all shortcuts)
 (Find keymaps in neovim) - `:Telescope keymaps`
 (Learn how to install nvim plugins) - `:Telescope help_tags`
@@ -395,21 +421,20 @@ Source: [YT](https://www.youtube.com/watch?v=9Sodnanx_yI)
 - `<leader><space>`
 
 ### Search neovim commands
+> **After installing `Telescope` + `LSP` plugin for neovim:**
+ 
 (Search Filename across directory) 
 - `<leader>sf`
 (Search word)
 - `<leader>sw`
 (Search by grep)
 - `<leader>sg`
-
 (Search symbol within document) - search "document symbol"
 - `<leader>ds`
 (Search symbol within current directory (workspace dir)) - search "workspace symbol"
 - `<leader>ws`
 (Search keywords within file)
 - `<leader>/`
-
-### lsp commands 
 (Goto Definition (after placing your cursor on text)) 
 - `<leader>gd`
 (Goto References)(see all files that use the text) 
@@ -420,8 +445,7 @@ Source: [YT](https://www.youtube.com/watch?v=9Sodnanx_yI)
 
 
 
-
-
+---
 # Iterm2 shortcuts
 
 **GENERAL**

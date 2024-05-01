@@ -132,6 +132,38 @@ git rm -r --cached path/to/your/dir
 			- E.g., Where a file can be "unstaged and modified"
 		- "untracked" (git has no idea about this file)
 
+`git diff`
+Shows the difference between the working directory (modified but not staged changes) and the last commit. 
+- (aka. showing what is modified in the file, which has caused it to change to a "modified" state when using `git status`)
+```
+git diff path/to/file
+```
+
+Reading git diff --- [YT, How to Read Git Diff Output](https://www.youtube.com/watch?v=OWS_ETgpLFQ)
+
+When comparing two files, `diff` finds sequences of lines common to both files, interspersed with groups of differing lines called _hunks_.
+- Example of 1 "*hunk*": 
+```
+@@ -1, 12 +1, 16 @@
+# 
+# 
+# 
+- # ABC
+- # DEF
+# xxx
+# 
++ # GHI
++ # JKL
+```
+> We show 1) a hunk, specified with numbered lines; 2) common lines; 3) contents from file A; 4) contents from file B.
+-   `@@ -{start-line}{number-of-lines} +{start-line}{number-of-lines} @@`: lines of interest.
+- `# {content}`: common lines
+- `- # {content}`: Differed lines in File A (i.e., if we concatenate only the the common lines + differed lines in file A, we get File A.)
+- `+ # {content}`: Differed lines in File B (i.e., if we concatenate only the the common lines + differed lines in file B, we get File B.)
+
+
+
+
 - `git add {target}`
 	- "Staging" operation: Asks git to "add" all "untracked" files IN the local workspace by "staging" it TO "the Index".
 	- Target:
@@ -273,21 +305,40 @@ $ git remote -v
 $ git remote remove <remote_name>
 ```
 
+# Git fetch
+```
+$ git remote add upstream {upstream_git_link}
+$ git fetch upstream
+```
+`git fetch` updates your remote-tracking branches under `refs/remotes/<remote>/`. This operation is safe to run at any time since it never changes any of your local branches under `refs/heads`.
 
 # Git pull
+> By default: [`git pull`](http://git-scm.com/docs/git-pull) does a [`git fetch`](http://git-scm.com/docs/git-fetch) followed by a [`git merge`](http://git-scm.com/docs/git-merge).
+> `git pull` runs `git fetch` with the given parameters and then depending on configuration options or command line flags, will call either `git rebase` or `git merge` to reconcile diverging branches.
 
-Pull changes from upstream remote (e.g., you forked a repo, and upstream is the original repo that was forked)
+#### Fetch + merge (*default `git pull`*)
+Pull changes from upstream remote (e.g., you forked a repo, and upstream is the original repo that was forked), then attempts merge them and resolve conflicts. 
 ```
 $ git remote add upstream {upstream_git_link}
 $ git fetch upstream
 $ git merge upstream/{remote_branch_name}
 ```
-- Then resolve conflicts
 If this is done in a terminal, a GNU nano text editor will be brought up as the default Git commit message editor or for resolving merge conflicts interactively.
 - To save your changes and exit `nano`, press `Ctrl` + `O`, then press `Enter`, and finally press `Ctrl` + `X`.
 - To navigate and edit the text in `nano`, use the arrow keys and standard text editing commands.
 	- We can use vim instead:
 	- `git config --global core.editor vim`
+
+#### Fetch + rebase
+```
+$ git merge --rebase upstream/{remote_branch_name}
+```
+
+# Git diff
+Checking difference between 2 branches
+```
+git diff upstream/{branch_name} {path/to/file}
+```
 
 # Git stash
 Use: Use to save work that is in progress, that you do not want to commit. Set aside your progress.
