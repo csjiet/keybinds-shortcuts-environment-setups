@@ -1041,6 +1041,7 @@ rsync -av -e "ssh -p {port}" {usr}@{ip-address}:{source} {destination}
 > `-r`: Recursive. This tells rsync to copy directories recursively
 > `-P`: Partial progress. For a long transfer that may be interrupted.
 > `--delete`: Make target an identical copy of the source, purging files in the destination that is not found in the source. (default: if there are files in the target destination that are not present at the source, they will be left alone and not touched)
+> `--ignore-existing`: tells rsync to skip updating files that already exist on the destination. (default:  If the file contents differ then the file will be overwritten)
 
 - (Pull: Receive synced files from remote): 
 ```
