@@ -307,7 +307,7 @@ $ git remote remove <remote_name>
 
 # Git fetch
 ```
-$ git remote add upstream {upstream_git_link}
+$ 
 $ git fetch upstream
 ```
 `git fetch` updates your remote-tracking branches under `refs/remotes/<remote>/`. This operation is safe to run at any time since it never changes any of your local branches under `refs/heads`.

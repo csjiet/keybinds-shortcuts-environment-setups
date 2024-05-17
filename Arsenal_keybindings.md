@@ -38,8 +38,8 @@
 # tmux
 
 (general)
-(RE-Source tmux config) `ctrl+b :`, `source-files ~/.tmux.conf`
-(Install plugins stored in `.tmux/` directory) `ctrl+b shift i`
+(RE-Source tmux config): `tmux source ~/.tmux.conf`
+(Install plugins stored in `.tmux/` directory): `ctrl+b shift i`
 
 **(sessions)**
 **(start tmux)** tmux
@@ -107,7 +107,13 @@
 
 (Stop scrolling mode in tmux terminal pane) ctrl + c
 
-  
+### tmux-vi
+More info: [YT, Tmux has forever changed the way I write code](https://www.youtube.com/watch?v=DzNmUNvnB04&t=691s), [Medium, bindings](https://medium.com/@bertrandoubida/tmux-vim-vi-and-basic-cli-commands-a87092fb2d49#:~:text=To%20enter%20Append%20Mode%3A%20Press,Command%20Mode%3A%20Press%20Esc%20key.****) 
+First: (Enter Scroll mode): `ctrl+b [`, then:
+- (Enter NORMAL visual mode): `v<space>`
+- (Enter LINE visual mode): `shift+v`
+- (Enter BLOCK visual mode): `ctrl+v<space>`
+- (Esc vi mode): `Esc`  (Ctrl+c will close the scroll mode)
   
 
   
@@ -231,9 +237,9 @@ RUN TERMINAL COMMAND FROM WITHIN VIM
 
 
 ### Windows in vim
-**OPENING AND SPLITTING MULTIPLE FILES FROM WITHIN VIM**
+**OPENING AND SPLITTING MULTIPLE WINDOWS FROM WITHIN VIM**
 
-Vim split prefix: `ctrl+w`
+Vim split window prefix: `ctrl+w`
 - (Split file horizontall) -`ctrl+w s` or  `:sp <old/new_filename>` 
 - (Split file vertically)  -  `ctrl+w v` or  `:vs <old/new_filename>`
 - Operation after split(s)
@@ -248,8 +254,8 @@ Vim split prefix: `ctrl+w`
 	- (Maximize buffer that was split horizontally): `ctrl+w _`
 	- (Reset all buffer/ window size so that they are ALL EQUAL dimensions): `ctrl+w =`
 	- (Exit pane): `ctrl+w q`
-- Movement after split(s)
-	- (Move to most left) - `ctrl+w H`
+- Vim split windows orientation change:
+	- (Move current window to the most left) - `ctrl+w H`
 	- (Move to most right) - `ctrl+w L`
 	- (Move to most top) - `ctrl+w K`
 	- (Move to most left) - `ctrl+w J`
@@ -444,6 +450,10 @@ nvim -d file1 file2 [file3 [file4]]
 
 
 
+# PLUGINs in neovim
+
+## OSC52
+(Allow osc52 to link with local connection): `set -s set-clipboard external`
 
 ---
 # Iterm2 shortcuts
@@ -937,7 +947,7 @@ scp {-option} {source} {destination}
 **"Send to":**
 - In local terminal:
 ```
-scp -r {./local_path_to_dir} usr@{i.p.address}:~/{path}
+scp -r -P {remote-port} {./local_path_to_dir} usr@{i.p.address}:~/{path}
 ```
 - (specifying destination port)
 ```
@@ -950,7 +960,7 @@ scp -P {destination_port} {./local_path_to_dir} usr@{i.p.address}:~/{path}
 **"Receive from":**
 - In local terminal:
 ```
-scp -r usr@{i.p.address}:~/{path} {./local_path_to_dir}
+scp -r -P {remote-port} usr@{i.p.address}:~/{path} {./local_path_to_dir}
 ```
 
 > The ip address changes depending on the network your device is connected to.
@@ -973,14 +983,69 @@ ipconfig getifaddr en0
 > How is rsync different from scp?
 > - rsync: Used to maintain a mirror copy or backup of a source directory to a destination directory. It does so differently compared to scp by **only minimally transferring the differences or portion of changes (addition or deletions) made to the files** rather than the entire file every time.
 
-Benefits:
-- Does not require separate commits, when splitting workload across computers. (e.g., pushing changes from machine 1, pulling from pushed changes to machine 2, and then pushing changes from machine 2 as 2nd commit)
-- Fault tolerant (A system continues to operate properly despite a failure). 
-	- Fault: Defect, imperfection.
-	- Tolerant: Ability to endure specific conditions.
+> Benefits:
+> - Does not require separate commits, when splitting workload across computers. 
+> 	- (e.g., pushing changes from machine 1, pulling from pushed changes to machine 2, and then pushing changes from machine 2 as 2nd commit)
+> - Fault tolerant (A system continues to operate properly despite a failure). 
+> 	- Fault: Failure.
+> 	- Tolerant: Resistant.
 
-1) 
+Setup --- [source](https://www.digitalocean.com/community/tutorials/how-to-copy-files-with-rsync-over-ssh)
+### 1. Establish trust between two machines
+In source machine:
+- Generate public SSH keys with no password
+```
+ssh-keygen -f ~/.ssh/id_rsa -q -P ""
+```
 
+- Get public SSH key that can be placed on other hosts to give us access
+```
+cat ~/.ssh/id_rsa.pub
+```
+In destination machine:
+- Copy the public key and login to your destination server.
+- Place this SSH key into your ~/.ssh/authorized_keys file
+```
+# If not created
+mkdir ~/.ssh 
+chmod 0700 ~/.ssh 
+
+# If not created
+touch ~/.ssh/authorized_keys 
+chmod 0644 ~/.ssh/authorized_keys
+```
+
+
+Syntax:
+```
+rsync -{flags} {source} {destination}
+```
+
+```
+rsync -av -e "ssh -p {port}" {usr}@{ip-address}:{source~/code/} {destination}
+```
+
+- (Push: Send synced files to remote): 
+Trailing slash: Means sync "contents in" source directory to destination_path_dir
+```
+rsync -av -e "ssh -p {port}" {usr}@{ip-address}:{source}/ {destination}
+```
+Or
+No trailing slash: Means sync source directory to destination_path_dir
+```
+rsync -av -e "ssh -p {port}" {usr}@{ip-address}:{source} {destination}
+```
+> `-e`: specifies the remote shell to use for communication
+> `-u` : Update. This forces rsync to skip any files which exist on the destination and have a modified time that is newer than the source file. (If an existing destination file has a modification time equal to the source file’s, it will be updated if the sizes  are different.)
+> `-v`: Verbose. This option increases the amount of information you are given during the transfer.
+> `-r`: Recursive. This tells rsync to copy directories recursively
+> `-P`: Partial progress. For a long transfer that may be interrupted.
+> `--delete`: Make target an identical copy of the source, purging files in the destination that is not found in the source. (default: if there are files in the target destination that are not present at the source, they will be left alone and not touched)
+
+- (Pull: Receive synced files from remote): 
+```
+rsync -uvrP username@remote_host:destination_path local_path
+```
 
 ----
 # Obsidian
