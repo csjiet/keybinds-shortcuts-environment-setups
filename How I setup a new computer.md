@@ -41,7 +41,7 @@ create`.tmux.conf`, and copy config
 + create `touch $HOME/.tmux.conf`
 + copy config to the file
 Download tmux plugin manager, so that we can enable some plugin commands in `.tmux.conf` (must be done)
-- `git clone git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
+- `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
 - This will create a new `~/.tmux` directory to store the plugins file
 
 ### Anaconda installation
@@ -55,6 +55,9 @@ Download tmux plugin manager, so that we can enable some plugin commands in `.tm
 	- Check if the correct "anaconda python" is used as default using: `which python`. 
 	- If python path does not display the correct path e.g.,(`xxx/xxx/anaconda/bin/python`): then you need to copy the `export PATH="/xx/xx/anaconda3/bin:$PATH"` snippet from the appended script (usually nested within the if-else statement of the conda initialize script), and place it outside for a more visible scope.
 > anaconda python affects: `python`, `python3`, `pip` commands and installation.
+- Setup bash to be sourced whenever terminal opens: Create `nvim .bash_profile` -> copy into `source ~/.bashrc` 
+
+> `.bash_profile` gets called first when a bash shell is initialize
 
 ## vscode
 - Jupyter notebook extension

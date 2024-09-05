@@ -1,10 +1,16 @@
 
+Eliminate need of a Password every git push: 
+- (**Enable Credential Helper**: Configure Git to use the credential helper to cache your credentials:) 
+```
+git config --global credential.helper cache
+```
+
 # Github concepts
 
 How do you recognize a directory in your workspace is a git repository?
 - .git (a directory) is created within the directory.
 
-Git data sites:
+## Git states:
 - workspace
 - Index (When you "stage" a file)
 - Local repository (When you "commit" a file)
@@ -26,42 +32,9 @@ git push, SSH setup
 	- In Github, go to settings > SSH and CPG keys > New SSH Keys (To add newly generated SSH key to you list of existing SSH keys) > Give you key a name, and paste your "Public key". (Now remote git knows the key you have generated)
 	- We have to let our workspace know about the key that was generated. Follow the steps: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent (This is a crucial step, with some complex commands)
 
-"pull request" (PR)
-- A request sent to allow you code from your branch ("compare branch") to be pulled into another branch ("the base").
-- If you are not the owner of a repo,often times you do not have access to the master branch. This means you cannot push the code directly to master, where they can only push the code to a different branch, and then raise a pull request to merge the changes to "master" branch.
-- Once a pull request is accepted and merged to another branch, the life cycle of your own branch can end, delete the branch.
-- Git hub: (remote repository - where the primary changes are done to if you use the github interface on web to make changes.), where if the developer wishes to see the changes, they have to use "git pull " command.
-	- There is a button called "Pull requests" at the navigation bar. 
-	- You can check comments, you commits, changes to the branch you have submitted for pull request.
-- Terminal git: (local repository - where the primary changes are done), where additional commands is required to push to remote repo.
-- Typical workflow if we use a pull request:
-	- **Fork the Repository**
-	- **Clone Your Fork**
-	- **Create a New Branch**
-	- **Make and Commit Changes**
-	- **Push to Your OWN Remote Fork**
-		- You push the changes from your local branch to your forked repository on GitHub. This step updates your fork with the changes you've made.
-		- We do not push to "upstream" - original repo that was forked.
-	- **Create a Pull Request**
-	- **PR Discussion and Review**
-	- **Merging the PR**
-
 "Merging"
 - The process of combining code from two branches.
 ![[git_merging.png]]
-
-
-"Git fork"/"Forking"
-- Copying an EXISTING repo created as your OWN repo.
-- You would do that if you want to refactor someone's (a random guys) entire repo, because you want to make changes to multiple branches, even if you are not assigned that branch, while you are not the owner. OR you just feel like experimenting with other people's code for fun. (It is similar to cloning people repo, create you own repo, copy their entire repo to your newly created repo, and commiting to your local repo, and pushing to you remote repo)
-- Similar to merging to base (the master branch) in branch merging, we have repository merging.
-- We can create a "pull request" to merge the "forked repo" to the "base repo", or go more intricately, and merge the "fork repo's specific branch" to the "base repo's same branch"
-- `git clone` vs `git fork`
-	- `git clone`: 
-		- a command used to create an independent copy of an existing Git repository, including all its commit history, branches, and files. This allows you to have your own local copy of the original repository, so that **you can contribute directly to the original repository**, if the original repository has granted you the necessary permissions. 
-	- `git fork`: 
-		- a command used to create an independent copy of an existing Git repository, including all its commit history, branches, and files. BUT this copy is independent of the original repository and exists as a separate entity. You can think of it as creating your own personal copy of someone else's repository, **so you can only contribute to your own forked repository without affecting the original repository**. 
-			- However, you can create branches, and eventually contribute to the original repo by making pull requests, and collaborate with others using your forked repository.
 
 ## Git ignore
 - To ignore files/ directories when committing to local repo/ pushing to remote repo.
@@ -72,28 +45,8 @@ Git ignore a directory (recursively)
 - Example:
 	- `dir1/`
 	- `.hidden_dir/`
-1) `git add .gitignore`
-2) `git commit -m "Add .gitignore"`
-Git ignore a file 
-1) Create a `touch .gitignore` file
-2) Add the line `file_name` or `path/to/{file_name}` in the file (can be relative path) - directory you want to ignore during commits, and remote push.
-- Example:
-	- `filename`
-	- `*.extension` (ignores all files that has that `extension`)
-1) `git add .gitignore`
-2) `git commit -m "Add .gitignore"`
 
-Git ignore "everything, except xxx"
-> E.g., If there are $n$ directories with all garbage, and you want to ignore everything, and only push all files with `.pdf` and `.tex` across all directories. 
-```
-* 
-* !**/*.pdf 
-* !**/*.tex
-```
-- `*` ignores all files and directories recursively.
-- `!**/*.pdf` and `!**/*.tex` negate the exclusion for .pdf and .tex files, specifically including them even within ignored directories.
-
-
+## Removing files from git states
 Removing tracked files
 - If you want to remove a file that is already being tracked by Git, you can add the `--cached` option to remove the file from the repository but keep it in your working directory. This is useful when you want to stop tracking the file but retain your local copy:
 > `--cached` flag: Crucial for specifying that you only want to remove the file from the index, not from your local filesystem.
@@ -228,12 +181,11 @@ A copy of the main/ master branch version at the time when the branch is created
 		- R - Renamed
 		- D - Deleted
 	- Result: It will show the commit logs. Press 'q' to exit log view
-
-- UNDO COMMITS: git reset {HEAD{optional:~{n commits before}}} OR git reset {commit_hash}
-	- Uncommits you last commit 
-	- HEAD: a pointer to the last commit 
-	- HEAD{optional:~{n commits before}}: uncommits the last N commits further starting from the last commit.
-	- {commit_hash}: An identifier given to a specific commit. (This identifier can be found after using the "git log" command).
+## Git reset
+```
+git reset --soft {commit-id}
+```
+- Move the current HEAD pointer to the specified earlier commit-id, where the later commits  will be kept in the staging area, ready to be recommitted.
 
 Show and delete git branch
 - `git branch -a`: Show local and remote branches 

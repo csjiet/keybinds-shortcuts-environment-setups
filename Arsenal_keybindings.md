@@ -29,6 +29,8 @@
 (**Move cursor forward**) - `ctrl + f`
 (**Move cursor backward**) - `ctrl + b`
 **(Reverse delete/ delete to the right)** - `ctrl + d`
+**(Delete from the cursor to the beginning of the line)**: `ctrl + u` (Uplift)
+**(Delete from the cursor to the end of the line)**: `ctrl + k` (Knockdown)
 
 **(Cancel the current command line command) - ctrl + c**
 
@@ -383,7 +385,7 @@ HIGHLIGHTING IN VISUAL MODE
 
 Search and replace:
 Source: [YT](https://www.youtube.com/watch?v=9Sodnanx_yI)
-1) `:%s/word2replace/replace/{g}{i/I}{c}` --- replace for the whole file 
+1) `:{%/{start-line}, {stop}}s/word2replace/replace/{g}{i/I}{c}` --- replace for the whole file 
 - `g`: all occurence
 - `i`: case insensitive (doesn't care about capitalization); `I`: case sensitive.
 - `c`: confirmation (ask before replace)
@@ -395,6 +397,16 @@ Source: [YT](https://www.youtube.com/watch?v=9Sodnanx_yI)
 - `:nnoremap {keybind} {command}`: Remap key to execute the command in normal mode.
 - `:vnoremap {keybind} {command}`: Remap key to execute the comamnd in visual mode.
 - `:inoremap {keybind} {command}`: Remap key to execute the command in insert mode.
+
+vimcal plugin
+
+**Open event list**: `shift+e`
+**Open task list**: `shift+t`
+**Add/ Edit event/ task**: `a`/ `i`
+**Mark task as "done"**: `dd`
+**Undo marked "done" task**: `shift+u`
+
+
 
 # neovim (nvim)
 > Installation:
@@ -456,6 +468,11 @@ nvim -d file1 file2 [file3 [file4]]
 (Allow osc52 to link with local connection): `set -s set-clipboard external`
 
 ---
+Git fugitive
+
+- **Diff the file in your working directory vs remote upstream**: Go to the file $\to$`:Gdiffsplit upstream/main`
+
+-----
 # Iterm2 shortcuts
 
 **GENERAL**
@@ -991,7 +1008,7 @@ ipconfig getifaddr en0
 > 	- Tolerant: Resistant.
 
 Setup --- [source](https://www.digitalocean.com/community/tutorials/how-to-copy-files-with-rsync-over-ssh)
-### 1. Establish trust between two machines
+### 1. Establish trust between two machines (optional: usually, rsync should work out of the box)
 In source machine:
 - Generate public SSH keys with no password
 ```
@@ -1015,25 +1032,21 @@ touch ~/.ssh/authorized_keys
 chmod 0644 ~/.ssh/authorized_keys
 ```
 
-
+### 2. Rsync! 
 Syntax:
 ```
-rsync -{flags} {source} {destination}
+rsync -uvrP -e "ssh -p {port}" {usr}@{ip-address}:{source~/code/} {destination}
 ```
 
+#### (Push: Send synced files to remote): 
+- **Trailing slash)): Means sync "contents in" source directory to destination_path_dir
 ```
-rsync -av -e "ssh -p {port}" {usr}@{ip-address}:{source~/code/} {destination}
-```
-
-- (Push: Send synced files to remote): 
-Trailing slash: Means sync "contents in" source directory to destination_path_dir
-```
-rsync -av -e "ssh -p {port}" {usr}@{ip-address}:{source}/ {destination}
+rsync -uvrP -e "ssh -p {port}" {usr}@{ip-address}:{source}/ {destination}
 ```
 Or
-No trailing slash: Means sync source directory to destination_path_dir
+- **No trailing slash**: Means sync source directory to destination_path_dir
 ```
-rsync -av -e "ssh -p {port}" {usr}@{ip-address}:{source} {destination}
+rsync -uvrP -e "ssh -p {port}" {usr}@{ip-address}:{source} {destination}
 ```
 > `-e`: specifies the remote shell to use for communication
 > `-u` : Update. This forces rsync to skip any files which exist on the destination and have a modified time that is newer than the source file. (If an existing destination file has a modification time equal to the source file’s, it will be updated if the sizes  are different.)
@@ -1043,10 +1056,17 @@ rsync -av -e "ssh -p {port}" {usr}@{ip-address}:{source} {destination}
 > `--delete`: Make target an identical copy of the source, purging files in the destination that is not found in the source. (default: if there are files in the target destination that are not present at the source, they will be left alone and not touched)
 > `--ignore-existing`: tells rsync to skip updating files that already exist on the destination. (default:  If the file contents differ then the file will be overwritten)
 
-- (Pull: Receive synced files from remote): 
+#### (Pull: Receive synced files from remote): 
 ```
 rsync -uvrP username@remote_host:destination_path local_path
 ```
+
+
+Make it perform like `scp` 
+```
+rsync -aurvP --ignore-existing --force --checksum --ignore-times -e "ssh -p 3333" {source} {destination} 
+```
+
 
 ----
 # Obsidian
@@ -1097,14 +1117,20 @@ Boilerplate
 
 ## Tensorboard
 
-Remote machine
+In Remote machine
 ```bash
-tensorboard --logdir=/tmp  --port=6006
+tensorboard --logdir={path_to_dir}  --port=6006
 ```
 
-Local machine
+In Local machine
+> use the option `-L` to transfer the port `6006` of the remote server into the port `16006` of my machine. everything on the port `6006` of the server (in `127.0.0.1:6006`) will be **forwarded** to my machine on the port `16006`.
 ```bash
 ssh -L 16006:127.0.0.1:6006 olivier@my_server_ip
+```
+
+> Go to link
+```
+http://127.0.0.1:16006/
 ```
 
 
