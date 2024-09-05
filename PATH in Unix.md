@@ -1,9 +1,9 @@
-> (`$PATH`: bin $\mapsto$ recognizable and invokable bin)
+> TLDR: (`$PATH`: `/bin` $\mapsto$ recognizable, invokable, executable binary)
 
 
 Table of contents:
 1. Binaries ("bin")
-2. $PATH environment variable 
+2. `$PATH` environment variable (adding binary path to $PATH)
 
 # Binaries ("bin")
 - Abbreviation: "/bin"
@@ -17,9 +17,16 @@ Table of contents:
 	- `/opt`: Optional or additional software.
 
 > Binaries exist in directories. 
+
+> `/Binary_directory`
+> |$-->$ `binary1
+> |$-->$ `binary2
+
 > Binaries are not executed automatically. 
-> :: We need to **explicitly "append" the binary directory** (`/opt`) to the PATH environment variable (`$PATH`) which is a variable that stores a list **containing "multiple absolute paths to the binaries directories" (e.g., `/bin`, `/opt`, `/usr/local/bin`). 
-> 
+> :: We need to **explicitly "append" the binary directory** (`/opt`) to the PATH environment variable (`$PATH`) which is a variable that stores a list **containing "multiple absolute paths to the binaries directories" (e.g., `/bin`: `/opt`: `/usr/local/bin`)** --- *separated by colons*. 
+
+> - `echo $PATH`: Prints a list of "colon (:) separated list" of string paths of binary directories.
+
 > Note: Binaries/ executable programs can be installed in a directory location, but if binaries are not explicitly added to the PATH list, it cannot find the executable (usually same name as command) associated with the terminal command, hence it does not recognize it as a valid command, and is unable to invoke the associated binary (the executable file).
 
 > Environment variables: 
