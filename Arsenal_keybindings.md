@@ -1067,6 +1067,21 @@ Make it perform like `scp`
 rsync -aurvP --ignore-existing --force --checksum --ignore-times -e "ssh -p 3333" {source} {destination} 
 ```
 
+----
+# Aerospace 
+Tile manager
+
+> Config: `.config/aerospace/aerospace.toml`
+
+- Reload: `alt + shift + ;` + `esc`
+
+- Layout accordion: `alt + ,`
+- Layout tiles: `alt + /` 
+- Fullscreen & retype to unfull: `alt + shift + f` 
+- Float the window & retype to unfloat: `alt + shift + ;` (service mode) + `f`
+- Make tile smaller in size: `alt + shift + -`
+- Make tile bigger in size: `alt + shift + =`
+``
 
 ----
 # Obsidian

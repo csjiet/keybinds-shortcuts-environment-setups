@@ -42,3 +42,16 @@ Table of contents:
 	- **OS search all binary directories**: Traverse all string path in `$PATH`,
 	- **IF BINARY FOUND** *Execute the binary associated with the command*; 
 	- **ELSE** *Command not found Error*
+
+> **Tip**: Check successful binary installation:
+> After an installation, to check if binaries are added:
+> `which {command_of_executable}`
+
+
+# Typical installation from scratch workflow
+Installation from source
+1. Clone the github repository
+2. `make` to install (usually creates a binary directory within the repo directory)
+3. Find the binary directory within the cloned repo
+4. `export PATH="/cloned-repo/cloned-repo/bin:$PATH"`
+
