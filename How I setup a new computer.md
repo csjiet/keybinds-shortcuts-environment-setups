@@ -34,6 +34,7 @@ export PATH="$HOME/neovim/bin:$PATH"
 
 - bugs:
 	- Had to fix this: [init.lua error: no specs found for module custom.plugins](https://github.com/nvim-lua/kickstart.nvim/issues/204)
+	- [Ripgrep](https://github.com/BurntSushi/ripgrep) plugin for telescope not installed: `brew install ripgrep`
 
 ### tmux
 - [legal nested sessions: ssh remote host tmux session, with local tmux already running](https://www.freecodecamp.org/news/tmux-in-practice-local-and-nested-remote-tmux-sessions-4f7ba5db8795/)
@@ -66,3 +67,18 @@ Download tmux plugin manager, so that we can enable some plugin commands in `.tm
 ## iterm
 Install nerd fonts using bash for neovim: `https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e`
 - e.g., `brew tap homebrew/cask-fonts && brew install --cask font-jetbrains-mono-nerd-font`
+
+### No sudo permissions
+> In shared machines, usually you do not have sudo permissions. Hence, we cannot install package managers like `homebrew` or use `apt-get`. In that case, we always do our builds from scratch.
+1. Build from source
+	- Git clone
+2. Open directory, locate binary (usually linux highlights it in green)
+3. Create a local binary directory: `mkdir ~/.local/bin`
+4. Place binary into the local binary directory: `mv {bin} ~/.local/bin`
+5. Add binary to PATH environment variable: `export PATH="$HOME/.local/bin:$PATH".
+
+- Example problems I faced:
+	- [Build ripgrep for neovim telescope from source](https://github.com/BurntSushi/ripgrep/discussions/2477)
+
+
+`

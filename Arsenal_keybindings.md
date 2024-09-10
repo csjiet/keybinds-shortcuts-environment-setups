@@ -385,7 +385,7 @@ HIGHLIGHTING IN VISUAL MODE
 
 Search and replace:
 Source: [YT](https://www.youtube.com/watch?v=9Sodnanx_yI)
-1) `:{%/{start-line}, {stop}}s/word2replace/replace/{g}{i/I}{c}` --- replace for the whole file 
+1) `:{% / {start-line}, {stop}}s/word2replace/replace/{g}{i/I}{c}` --- replace for the whole file 
 - `g`: all occurence
 - `i`: case insensitive (doesn't care about capitalization); `I`: case sensitive.
 - `c`: confirmation (ask before replace)

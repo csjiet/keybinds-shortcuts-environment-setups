@@ -43,15 +43,31 @@ Table of contents:
 	- **IF BINARY FOUND** *Execute the binary associated with the command*; 
 	- **ELSE** *Command not found Error*
 
-> **Tip**: Check successful binary installation:
+# Tip: Checking successful binary installation.
+> `which`
 > After an installation, to check if binaries are added:
 > `which {command_of_executable}`
+> - Searches the directories listed in the user's `PATH` environment variable and locate the executable file associated with a given command.
 
 
 # Typical installation from scratch workflow
+
+Creating your own binary directory
+1. `mkdir ~/.local/bin`
+2. Open bashrc `vim ~/.bashrc`
+3. `export PATH="~/.local/bin:$PATH"`
+
 Installation from source
 1. Clone the github repository
 2. `make` to install (usually creates a binary directory within the repo directory)
 3. Find the binary directory within the cloned repo
 4. `export PATH="/cloned-repo/cloned-repo/bin:$PATH"`
+
+OR 
+
+1. Build from source
+	- Git clone
+2. Open directory, locate binary (usually linux highlights it in green)
+4. Place binary into the local binary directory: `mv {bin} ~/.local/bin`
+5. Add binary to PATH environment variable: `export PATH="$HOME/.local/bin:$PATH".
 
