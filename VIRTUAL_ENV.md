@@ -1,3 +1,9 @@
+---
+id: VIRTUAL_ENV
+aliases: []
+tags: []
+---
+
 # There are 3 types of ways to create a virtual environment in python
 
 Source: [https://medium.com/@krishnaregmi/pipenv-vs-virtualenv-vs-conda-environment-3dde3f6869ed]
@@ -65,6 +71,9 @@ Running `pip install` within a Conda environment will only affect that specific 
 ### 2b. (Create and install new kernel into system)
 - Check ipython kernels installed: `jupyter kernelspec list` (so that you don't create too many ipykernels) 
 
+> WE ALWAYS "ACTIVATE THE VIRTUAL ENVIRONMENT" (2a) BEFORE "ATTACHING TO Kernel" (2b)
+> Because: When we install the ipykernel (2b), AFTER activating the virtual environment (2a), it will create a new pykernel in our CURRENT virtual environment. But, if we don't activate the virtual environment first, it will create a kernel in the default kernel.  
+
 -  IF You will create virtual environment locally as a subdirectory using `--prefix`, and you want to create a kernel within your virtual environment:
 > $ `conda install jupyter`
 > $ `conda install ipykernel`
@@ -81,6 +90,7 @@ Running `pip install` within a Conda environment will only affect that specific 
 - `name_of_kernel` that is created can be anything. But recommended to be the same as the environment, so reduce ambiguities.
 - NOTE: Activate the virtual environment BEFORE attatching to your jupyter kernel
 - `VScode`: Install the `"Jupyter" extension` before getting started. If not, it will not detect any kernels in your system.
+
 
 ### (Uninstalling virtual environment from jupyter)
 > $`jupyter kernelspec uninstall envname`

@@ -90,7 +90,7 @@
 **(Split horizontally)** ctrl+b “
 **(Split vertically)** ctrl + b %
 **(move to pane)** ctrl + b [arrow key]
-**(Expand pane)** ctrl + b:, then   ":resize-pane <-U/-D/-L/-R> {number of lines,moving the border}"
+**(Expand pane)** ctrl + b:, then   ":resize-pane {-U/-D/-L/-R} {number of lines,moving the border}"
 
 **(Close pane)** ctrl + b x
 
@@ -257,10 +257,10 @@ Vim split window prefix: `ctrl+w`
 	- (Reset all buffer/ window size so that they are ALL EQUAL dimensions): `ctrl+w =`
 	- (Exit pane): `ctrl+w q`
 - Vim split windows orientation change:
-	- (Move current window to the most left) - `ctrl+w H`
-	- (Move to most right) - `ctrl+w L`
-	- (Move to most top) - `ctrl+w K`
-	- (Move to most left) - `ctrl+w J`
+	- (Move window to most right) - `ctrl+w L`
+	- (Move window to most left) - `ctrl+w H`
+	- (Move window to most top) - `ctrl+w K`
+	- (Move window to most down) - `ctrl+w J`
   
 
 **(insert at the END of the line) -** A
@@ -385,11 +385,21 @@ HIGHLIGHTING IN VISUAL MODE
 
 Search and replace:
 Source: [YT](https://www.youtube.com/watch?v=9Sodnanx_yI)
-1) `:{% / {start-line}, {stop}}s/word2replace/replace/{g}{i/I}{c}` --- replace for the whole file 
-- `g`: all occurence
-- `i`: case insensitive (doesn't care about capitalization); `I`: case sensitive.
-- `c`: confirmation (ask before replace)
-2) `:{start-line},{stop}s/word2replace/replace/{g}{i/I}{c}` --- replace occurances in specific lines
+1) `:{% // {{start-line}, {stop}}}s /word2replace/replace/{g}{i/I}{c}` --- replace for the whole file 
+	- E.g., `:%s/article/tutorial/gic`
+		- Read as:
+		- ":" = "I want to execute a Vim, ex-command"
+		- "%" = "Applied to the ENTIRE buffer/ ALL LINES of the current file"
+		- "s" = "substitute"
+		- "article" = "this search pattern"
+		- "tutorial" = "with this replacement pattern"
+		- "g" = "globally"
+		- "i" = "case Insensitive"
+		- "c" = "confirm with me before replace"
+	- `g`: all occurence
+	- `i`: case insensitive (doesn't care about capitalization); `I`: case sensitive.
+	- `c`: confirmation (ask before replace)
+3) `:{start-line},{stop}s/word2replace/replace/{g}{i/I}{c}` --- replace occurances in specific lines
 
 ## VIMRC
 - **:map**: See all keybinds in vimrc 
@@ -465,7 +475,16 @@ nvim -d file1 file2 [file3 [file4]]
 # PLUGINs in neovim
 
 ## OSC52
-(Allow osc52 to link with local connection): `set -s set-clipboard external`
+1) Install `xclip` and `xsel`
+2) In tmux `<prefix>:` mode (Allow osc52 to link with local connection): 
+	- `set -s set-clipboard external` 
+	- `set-option -g set-clipboard on`
+
+
+Using "Port forwarding" ssh command: if we need to connect to an 1) intermediate machine BEFORE connecting to a 2) final machine.
+```
+ssh -L 8080:linserv1.cims.nyu.edu:80 -J st5494@access.cims.nyu.edu st5494@linserv1.cims.nyu.edu
+```
 
 ---
 Git fugitive

@@ -248,6 +248,7 @@ $ git remote add {remote_identifier} {git_remote_link}
 ```
 
 - View/ check all remote repo you have linked to the local repo
+- `{remote_identifier}`: E.g., "origin", "upstream", ...
 ``` 
 $ git remote -v
 ```

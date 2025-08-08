@@ -1,7 +1,7 @@
 
 ### Neovim
 
-[Build prerequisites](https://github.com/neovim/neovim/wiki/Building-Neovim)
+[Build prerequisites](https://github.com/neovim/neovim/blob/master/BUILD.md)
 - (Build prerequisites): Ubuntu/ Debian: 
 ```
 sudo apt-get install ninja-build gettext cmake unzip curl
@@ -13,14 +13,7 @@ git clone https://github.com/neovim/neovim
 cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
 ```
 Install neovim "from source"
-- [neovim from source](https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-source), but with additional commands to make installation isolated at `$HOME` which is stated explicitly in the github readme.
-
-> This one below might not need if we execute the next one. Try, and if so delete this.
-```
-make CMAKE_BUILD_TYPE=Release
-sudo make install
-```
-
+- [neovim from source](https://github.com/neovim/neovim/blob/master/INSTALL.md#install-from-source), but with additional commands to make installation isolated at `$HOME` which is stated explicitly in the github readme.
 ```
 rm -r build/  # clear the CMake cache
 make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim"
@@ -35,7 +28,6 @@ export PATH="$HOME/neovim/bin:$PATH"
 - bugs:
 	- Had to fix this: [init.lua error: no specs found for module custom.plugins](https://github.com/nvim-lua/kickstart.nvim/issues/204)
 	- [Ripgrep](https://github.com/BurntSushi/ripgrep) plugin for telescope not installed: `brew install ripgrep`
-
 ### tmux
 - [legal nested sessions: ssh remote host tmux session, with local tmux already running](https://www.freecodecamp.org/news/tmux-in-practice-local-and-nested-remote-tmux-sessions-4f7ba5db8795/)
 create`.tmux.conf`, and copy config
